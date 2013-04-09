@@ -1,29 +1,36 @@
-# Lxc
+[![Build Status](https://secure.travis-ci.org/zpatten/lxc.png)](http://travis-ci.org/zpatten/lxc)
+[![Dependency Status](https://gemnasium.com/zpatten/lxc.png)](https://gemnasium.com/zpatten/lxc)
 
-Gem for controlling local or remote Linux Containers (LXC).
+# LXC
 
-## Installation
+An interface for controlling local or remote Linux Containers (LXC).
 
-Add this line to your application's Gemfile:
+# RESOURCES
 
-    gem 'lxc'
+Source:
 
-And then execute:
+* https://github.com/zpatten/lxc
 
-    $ bundle
+Issues:
 
-Or install it yourself as:
+* https://github.com/zpatten/lxc/issues
 
-    $ gem install lxc
+# LICENSE
 
-## Usage
+LXC - An interface for controlling local or remote Linux Containers (LXC)
 
-TODO: Write usage instructions here
+* Author: Zachary Patten <zachary@jovelabs.com> [![endorse](http://api.coderwall.com/zpatten/endorsecount.png)](http://coderwall.com/zpatten)
+* Copyright: Copyright (c) Zachary Patten
+* License: Apache License, Version 2.0
 
-## Contributing
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

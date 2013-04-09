@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "lxc"
   spec.version       = LXC::VERSION
   spec.authors       = ["Zachary Patten"]
-  spec.email         = ["zpatten@jovelabs.com"]
-  spec.description   = %q(Gem for controlling local or remote Linux Containers (LXC))
-  spec.summary       = %q(Gem for controlling local or remote Linux Containers (LXC))
+  spec.email         = ["zachary@jovelabs.com"]
+  spec.description   = %q(An interface for controlling local or remote Linux Containers (LXC))
+  spec.summary       = %q(An interface for controlling local or remote Linux Containers (LXC))
   spec.homepage      = "https://github.com/zpatten/lxc"
   spec.license       = "Apache 2.0"
 
