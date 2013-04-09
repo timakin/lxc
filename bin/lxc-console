@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+def lxc_console
+  require 'pry'
+  require 'lxc'
+
+  ##
+  #
+  # Welcome to the LXC RubyGem console!
+  #
+  ##
+  binding.pry
+end
+
+begin
+  lxc_console
+rescue LoadError => e
+  puts "This command should only be executed in development environments; this does not appear to be one!"
+end
