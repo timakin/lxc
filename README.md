@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/zpatten/lxc.png)](http://travis-ci.org/zpatten/lxc)
+[![Code Climate](https://codeclimate.com/github/zpatten/lxc.png)](https://codeclimate.com/github/zpatten/lxc)
 [![Dependency Status](https://gemnasium.com/zpatten/lxc.png)](https://gemnasium.com/zpatten/lxc)
 
 # LXC
