@@ -1,6 +1,6 @@
 # Lxc
 
-TODO: Write a gem description
+Gem for controlling local or remote Linux Containers (LXC).
 
 ## Installation
 
