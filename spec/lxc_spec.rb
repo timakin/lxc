@@ -161,6 +161,8 @@ describe LXC do
 
           context "against local host" do
             it "should exec the supplied LXC command" do
+              subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-version.out") }
+
               subject.exec("version").should be_kind_of(String)
             end
           end
