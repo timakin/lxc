@@ -178,7 +178,8 @@ describe LXC do
               subject.use_ssh = @ssh_connection
               subject.exec("version").should be_kind_of(String)
             end
-          end
+          end if !ENV['CI'] && !ENV['TRAVIS']
+
         end
 
       end # LXC Version Context
