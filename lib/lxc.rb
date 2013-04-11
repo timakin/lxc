@@ -2,8 +2,12 @@ require 'ztk'
 
 require 'lxc/version'
 
+# Main LXC (Linux Container) Class
+#
+# @author Zachary Patten <zachary@jovelabs.net>
 class LXC
 
+  # Top-Level Error Class
   class Error < StandardError; end
 
   autoload :Container, 'lxc/container'
@@ -174,7 +178,5 @@ class LXC
 
     "#<LXC #{tags}>"
   end
-
-################################################################################
 
 end
