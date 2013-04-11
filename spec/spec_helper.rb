@@ -17,12 +17,12 @@
 #   limitations under the License.
 #
 ################################################################################
-require 'ztk'
 require 'simplecov'
-
 SimpleCov.start do
   add_filter '/spec/'
 end if ENV["COVERAGE"]
+################################################################################
+require 'lxc'
 
 ENV['LOG_LEVEL'] = "DEBUG"
 
@@ -39,15 +39,13 @@ RSpec.configure do |config|
     $logger.info { "=" * 80 }
   end
 
-  config.before(:each) do
-    $ui = ZTK::UI.new(
-      :stdout => StringIO.new,
-      :stderr => StringIO.new,
-      :stdin => StringIO.new
-    )
-  end
-
 end
 
-
 ################################################################################
+
+LXC_VERSIONS = %w(0.7.5 0.8.0-rc2)
+
+def lxc_fixture(version, filename)
+  filepath = File.expand_path(File.join(File.dirname(__FILE__), "fixtures", version, filename))
+  IO.read(filepath)
+end
