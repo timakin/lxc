@@ -99,7 +99,34 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Main Container Class</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Zachary Patten &lt;zachary@jovelabs.net&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
   <h2>Constant Summary</h2>
   
     <dl class="constants">
@@ -759,16 +786,16 @@ output.</p>
       <pre class="lines">
 
 
-60
-61
-62
-63
-64
 65
-66</pre>
+66
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_lxc'>lxc</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ContainerError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must supply a LXC object!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_lxc'>lxc</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -833,12 +860,12 @@ output.</p>
       <pre class="lines">
 
 
-58
-59
-60</pre>
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
@@ -894,14 +921,14 @@ output.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -988,18 +1015,18 @@ exec method.</p>
       <pre class="lines">
 
 
-198
-199
-200
-201
-202
 203
 204
 205
-206</pre>
+206
+207
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1059,12 +1086,12 @@ exec method.</p>
       <pre class="lines">
 
 
-158
-159
-160</pre>
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span>
   <span class='ivar'>@lxc</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1140,13 +1167,13 @@ exec method.</p>
       <pre class="lines">
 
 
-103
-104
-105
-106</pre>
+108
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_freeze'>freeze</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>freeze</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -1196,14 +1223,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -1254,14 +1281,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -1339,12 +1366,12 @@ exec method.</p>
       <pre class="lines">
 
 
-125
-126
-127</pre>
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>info</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
@@ -1393,16 +1420,16 @@ exec method.</p>
       <pre class="lines">
 
 
-210
-211
-212
-213
-214
 215
-216</pre>
+216
+217
+218
+219
+220
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 210</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1482,15 +1509,15 @@ exec method.</p>
       <pre class="lines">
 
 
-148
-149
-150
-151
-152
-153</pre>
+153
+154
+155
+156
+157
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pid'>pid</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--pid</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_str'>str</span><span class='op'>|</span> <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='const'>REGEX_PID</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1533,13 +1560,13 @@ exec method.</p>
       <pre class="lines">
 
 
-91
-92
-93
-94</pre>
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_restart'>restart</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
@@ -1589,14 +1616,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -1674,13 +1701,13 @@ exec method.</p>
       <pre class="lines">
 
 
-74
-75
-76
-77</pre>
+79
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>start</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--daemon</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -1730,14 +1757,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -1815,15 +1842,15 @@ exec method.</p>
       <pre class="lines">
 
 
-135
-136
-137
-138
-139
-140</pre>
+140
+141
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_state'>state</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--state</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_str'>str</span><span class='op'>|</span> <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='const'>REGEX_STATE</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1902,13 +1929,13 @@ exec method.</p>
       <pre class="lines">
 
 
-85
-86
-87
-88</pre>
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stop</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -1958,14 +1985,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -2016,14 +2043,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -2074,14 +2101,14 @@ exec method.</p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 46</span>
 
 <span class='const'>STATES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -2159,13 +2186,13 @@ exec method.</p>
       <pre class="lines">
 
 
-114
-115
-116
-117</pre>
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unfreeze'>unfreeze</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unfreeze</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -2261,11 +2288,6 @@ change state to.</p>
       <pre class="lines">
 
 
-172
-173
-174
-175
-176
 177
 178
 179
@@ -2275,10 +2297,15 @@ change state to.</p>
 183
 184
 185
-186</pre>
+186
+187
+188
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 172</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wait'>wait</span><span class='lparen'>(</span><span class='id identifier rubyid_states'>states</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='op'>=</span><span class='int'>60</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_state_arg'>state_arg</span> <span class='op'>=</span> <span class='id identifier rubyid_states'>states</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
@@ -2305,7 +2332,7 @@ change state to.</p>
 </div>
 
     <div id="footer">
-  Generated on Fri Apr 12 10:52:21 2013 by
+  Generated on Fri Apr 12 10:56:58 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>
