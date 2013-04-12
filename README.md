@@ -10,7 +10,7 @@ An interface for controlling local or remote Linux Containers (LXC).
 
 Documentation:
 
-* http://zpatten.github.io/ztk/
+* http://zpatten.github.io/lxc/
 
 Source:
 
