@@ -39,8 +39,8 @@ class LXC
     #   Returns true if the container is thawed, false otherwise.
     #   @return [Boolean]
     STATES.each do |state|
-      define_method "#{state.downcase}?" do
-        (self.state == state.downcase.to_sym)
+      define_method "#{state}?" do
+        (self.state == state)
       end
     end
 
