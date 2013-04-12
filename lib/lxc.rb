@@ -154,6 +154,7 @@ class LXC
     arguments << "sudo" if (@use_sudo == true)
     arguments << "lxc-#{command}"
     arguments << args
+    arguments << " | #{yield}" if block_given?
     arguments = arguments.flatten.compact.join(' ')
 
     output = Array.new
