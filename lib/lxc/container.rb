@@ -159,6 +159,32 @@ class LXC
       @lxc.exists?(self.name)
     end
 
+    # Wait for a specific container state
+    #
+    # Runs the "lxc-wait" command.
+    #
+    # @param [Array] states An array of container states for which we will wait
+    #   for the container to change state to.
+    # @param [Integer] timeout How long in seconds we will wait before the
+    #   operation times out.
+    # @return [Boolean] Returns true of the state change happened, false
+    #   otherwise.
+    def wait(states, timeout=60)
+      state_arg = states.map do |state|
+        state.to_s.upcase.strip
+      end.join('|')
+
+      begin
+        Timeout::timeout(timeout) do
+          self.exec("wait", "-s", %('#{state_arg}'))
+        end
+      rescue Timeout::Error => e
+        return false
+      end
+
+      return true
+    end
+
     # Linux container command execution wrapper
     #
     # Executes the supplied command by injecting the container name into the
