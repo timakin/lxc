@@ -1,6 +1,11 @@
 class LXC
+
+  # Container Error Class
   class ContainerError < Error; end
 
+  # Main Container Class
+  #
+  # @author Zachary Patten <zachary@jovelabs.net>
   class Container
 
     # An array containing the valid container states extracted from the LXC

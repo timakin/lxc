@@ -2,7 +2,7 @@ require 'ztk'
 
 require 'lxc/version'
 
-# Main LXC (Linux Container) Class
+# Top-Level LXC Class
 #
 # @author Zachary Patten <zachary@jovelabs.net>
 class LXC
