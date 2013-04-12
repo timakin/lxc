@@ -1,3 +1,3 @@
 class LXC
-  VERSION = "0.0.1" unless const_defined?(:VERSION)
+  VERSION = "0.0.2" unless const_defined?(:VERSION)
 end
