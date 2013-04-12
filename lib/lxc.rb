@@ -151,8 +151,6 @@ class LXC
     arguments << args
     arguments = arguments.flatten.compact.join(' ')
 
-    puts("EXECUTE: #{arguments.inspect}")
-
     output = Array.new
 
     if @use_ssh.nil?

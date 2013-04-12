@@ -126,8 +126,6 @@ class LXC
       arguments << args
       arguments.flatten!.compact!
 
-      puts("EXECUTE: #{arguments.inspect}")
-
       @lxc.exec(*arguments)
     end
 
