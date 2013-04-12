@@ -129,7 +129,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Output text of the "lxc-ps" command.
   def checkconfig(*args)
-    self.exec("checkconfig", *args).split("\n")
+    self.exec("checkconfig", *args) { SED_REMOVE_ANSI }.split("\n")
   end
 
   # Linux container command execution wrapper
