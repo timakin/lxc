@@ -129,7 +129,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Output text of the "lxc-checkconfig" command.
   def checkconfig(*args)
-    self.exec("checkconfig", *args) { SED_REMOVE_ANSI }.split("\n")
+    self.exec("checkconfig", *args, " | #{SED_REMOVE_ANSI}").split("\n")
   end
 
   # Linux container command execution wrapper
@@ -154,7 +154,6 @@ class LXC
     arguments << "sudo" if (@use_sudo == true)
     arguments << "lxc-#{command}"
     arguments << args
-    arguments << " | #{yield}" if block_given?
     arguments = arguments.flatten.compact.join(' ')
 
     output = Array.new
