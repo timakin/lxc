@@ -162,7 +162,7 @@ class LXC
         end
       end
     else
-      if @use_ssh.respond_to(:exec!)
+      if @use_ssh.respond_to?(:exec!)
         output << @use_ssh.exec!(arguments)
       else
         raise Error, "The object you assigned to use_ssh does not respond to #exec!"
