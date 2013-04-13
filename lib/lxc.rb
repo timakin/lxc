@@ -127,7 +127,7 @@ class LXC
   # Runs the "lxc-checkconfig" command.
   #
   # @param [Array] args Additional command-line arguments.
-  # @return [Array<String>] Output text of the "lxc-ps" command.
+  # @return [Array<String>] Output text of the "lxc-checkconfig" command.
   def checkconfig(*args)
     self.exec("checkconfig", *args) { SED_REMOVE_ANSI }.split("\n")
   end
