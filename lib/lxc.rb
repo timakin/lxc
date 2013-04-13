@@ -142,9 +142,6 @@ class LXC
   # If use_ssh is non-nil then all commands will be execute via the assigned
   # Net::SSH Session.
   #
-  # No internal checking is performed against the object assigned to use_ssh as
-  # to avoid an un-necessary direct dependency on the net-ssh gems.
-  #
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Stripped output text of the executed command.
   def exec(*args)
@@ -165,7 +162,11 @@ class LXC
         end
       end
     else
-      output << @use_ssh.exec!(arguments)
+      if @use_ssh.respond_to(:exec!)
+        output << @use_ssh.exec!(arguments)
+      else
+        raise Error, "The object you assigned to use_ssh does not respond to #exec!"
+      end
     end
 
     output.join.strip
