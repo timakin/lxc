@@ -1,3 +1,5 @@
+require 'timeout'
+
 class LXC
 
   # Container Error Class
@@ -55,7 +57,7 @@ class LXC
 
     # RegEx pattern for extracting the container PID from the "lxc-info"
     # command output.
-    REGEX_PID = /^pid:\s+([\d]+)$/
+    REGEX_PID = /^pid:\s+([-\d]+)$/
 
     # Returns the container name
     #
