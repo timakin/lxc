@@ -207,7 +207,7 @@ class LXC
         return false
       end
 
-      return true
+      true
     end
 
     # Linux container command execution wrapper
