@@ -70,6 +70,26 @@ class LXC
       @name = name
     end
 
+    # Create the container
+    #
+    # Runs the "lxc-create" command.
+    #
+    # @param [Array] args Additional command-line arguments.
+    def create(*args)
+      self.exec("create", *args)
+      self.state
+    end
+
+    # Destroy the container
+    #
+    # Stops the container, then runs the "lxc-destroy" command.
+    #
+    # @param [Array] args Additional command-line arguments.
+    def destroy(*args)
+      self.stop
+      self.exec("destroy", *args)
+    end
+
     # Start the container
     #
     # Runs the "lxc-start" command with the "--daemon" flag.
