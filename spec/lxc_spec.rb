@@ -27,7 +27,6 @@ describe LXC do
   describe "methods" do
 
     LXC_VERSIONS.each do |lxc_version|
-
       context "LXC Target Version #{lxc_version}" do
 
         describe "#ls" do
@@ -185,7 +184,6 @@ describe LXC do
         end
 
       end # LXC Version Context
-
     end # LXC_VERSIONS
 
   end

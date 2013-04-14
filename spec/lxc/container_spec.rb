@@ -26,27 +26,41 @@ describe LXC::Container do
 
   describe "methods" do
 
-    describe "#exists?" do
-      it "should return false for an un-created remote container" do
-        subject.exists?.should == false
-      end
-    end
+    LXC_VERSIONS.each do |lxc_version|
+      context "LXC Target Version #{lxc_version}" do
 
-    describe "#pid" do
-      it "should return -1 for an un-created remote container" do
-        subject.pid.should == -1
-      end
-    end
+        describe "#exists?" do
+          it "should return false for an un-created remote container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-ls-wo-containers.out") }
 
-    describe "#state" do
-      it "should return stopped for an un-created remote container" do
-        subject.state.should == :stopped
-      end
-    end
+            subject.exists?.should == false
+          end
+        end
 
-    describe "#wait" do
-      it "should be successfully when waiting to stop a non-existant remote container" do
-        subject.wait([:stopped], 120).should == true
+        describe "#pid" do
+          it "should return -1 for an un-created remote container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-pid-stopped.out") }
+
+            subject.pid.should == -1
+          end
+        end
+
+        describe "#state" do
+          it "should return stopped for an un-created remote container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
+            subject.state.should == :stopped
+          end
+        end
+
+        describe "#wait" do
+          it "should be successfully when waiting to stop a non-existant remote container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-wait.out") }
+
+            subject.wait([:stopped], 120).should == true
+          end
+        end
+
       end
     end
 
