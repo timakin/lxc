@@ -30,7 +30,7 @@ describe LXC do
 
       context "LXC Target Version #{lxc_version}" do
 
-        describe "ls" do
+        describe "#ls" do
 
           context "with containers" do
 
@@ -58,7 +58,7 @@ describe LXC do
 
         end
 
-        describe "exists?" do
+        describe "#exists?" do
 
           context "with containers" do
 
@@ -90,7 +90,7 @@ describe LXC do
 
         end
 
-        describe "ps" do
+        describe "#ps" do
           it "should return an array of strings representing the lxc process list" do
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-ps.out") }
 
@@ -99,7 +99,7 @@ describe LXC do
           end
         end
 
-        describe "version" do
+        describe "#version" do
           it "should return a string representation of the installed LXC version" do
             subject.stub(:exec) { lxc_fixture(lxc_version, 'lxc-version.out') }
 
@@ -109,7 +109,7 @@ describe LXC do
           end
         end
 
-        describe "checkconfig" do
+        describe "#checkconfig" do
           it "should return an array of strings representing the LXC configuration" do
             subject.stub(:exec) { lxc_fixture(lxc_version, 'lxc-checkconfig.out') }
 
@@ -121,14 +121,14 @@ describe LXC do
           end
         end
 
-        describe "container" do
+        describe "#container" do
           it "should return a container object for the requested container" do
             result = subject.container("devop-test-1")
             result.should be_an_instance_of(::LXC::Container)
           end
         end
 
-        describe "containers" do
+        describe "#containers" do
 
           context "with containers" do
             it "should return an array of container objects" do
@@ -150,14 +150,14 @@ describe LXC do
 
         end
 
-        describe "inspect" do
+        describe "#inspect" do
           it "should return an information string about our class instance" do
             subject.inspect.should be_kind_of(String)
             subject.inspect.length.should be > 0
           end
         end
 
-        describe "exec" do
+        describe "#exec" do
 
           context "against local host" do
             it "should exec the supplied LXC command" do
