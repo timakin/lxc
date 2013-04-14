@@ -6,7 +6,8 @@ rvm:
   - 2.0.0
 
 before_install:
-  - sudo apt-get -qq --force-yes update
+  - sudo apt-get -qq -y --force-yes update
+  - sudo apt-get -qq -y --force-yes install lxc
 
 bundler_args: --binstubs
 
