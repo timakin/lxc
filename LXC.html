@@ -1129,7 +1129,8 @@ Net::SSH Session.</p>
 170
 171
 172
-173</pre>
+173
+174</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 147</span>
@@ -1138,8 +1139,9 @@ Net::SSH Session.</p>
   <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
 
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sudo</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='ivar'>@use_sudo</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lxc-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>sudo</span><span class='tstring_end'>)</span></span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='ivar'>@use_sudo</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>DEBIAN_FRONTEND=&quot;noninteractive&quot;</span><span class='tstring_end'>)</span></span>
+  <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>lxc-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_end'>)</span></span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 
@@ -1152,7 +1154,7 @@ Net::SSH Session.</p>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
   <span class='kw'>else</span>
-    <span class='kw'>if</span> <span class='ivar'>@use_ssh</span><span class='period'>.</span><span class='id identifier rubyid_respond_to'>respond_to</span><span class='lparen'>(</span><span class='symbol'>:exec!</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='ivar'>@use_ssh</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:exec!</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_output'>output</span> <span class='op'>&lt;&lt;</span> <span class='ivar'>@use_ssh</span><span class='period'>.</span><span class='id identifier rubyid_exec!'>exec!</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
       <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Error</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The object you assigned to use_ssh does not respond to #exec!</span><span class='tstring_end'>&quot;</span></span>
@@ -1287,17 +1289,17 @@ container.</p>
       <pre class="lines">
 
 
-177
 178
 179
 180
 181
 182
 183
-184</pre>
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 178</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1566,7 +1568,7 @@ container.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Apr 13 00:05:22 2013 by
+  Generated on Sat Apr 13 17:29:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>
