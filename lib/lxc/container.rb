@@ -75,6 +75,7 @@ class LXC
     # Runs the "lxc-create" command.
     #
     # @param [Array] args Additional command-line arguments.
+    # @return [Symbol] The state of the container.
     def create(*args)
       self.exec("lxc-create", *args)
       self.state
@@ -82,12 +83,15 @@ class LXC
 
     # Destroy the container
     #
-    # Stops the container, then runs the "lxc-destroy" command.
+    # Runs the "lxc-destroy" command.  If the container has not been stopped
+    # first then this will fail unless '-f' is passed as an argument.  See
+    # the 'lxc-destroy' man page for more details.
     #
     # @param [Array] args Additional command-line arguments.
+    # @return [Symbol] The state of the container.
     def destroy(*args)
-      self.stop
       self.exec("lxc-destroy", *args)
+      self.state
     end
 
     # Start the container
