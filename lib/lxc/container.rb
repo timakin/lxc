@@ -194,6 +194,9 @@ class LXC
     #
     # Runs the "lxc-wait" command.
     #
+    # The timeout only works when using remote control via SSH and will orphan
+    # the process ('lxc-wait') on the remote host.
+    #
     # @param [Array] states An array of container states for which we will wait
     #   for the container to change state to.
     # @param [Integer] timeout How long in seconds we will wait before the
@@ -206,7 +209,7 @@ class LXC
       end.join('|')
 
       begin
-        Timeout::timeout(timeout) do
+        Timeout.timeout(timeout) do
           self.exec("lxc-wait", "-s", %('#{state_arg}'))
         end
       rescue Timeout::Error => e
