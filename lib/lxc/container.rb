@@ -76,7 +76,7 @@ class LXC
     #
     # @param [Array] args Additional command-line arguments.
     def create(*args)
-      self.exec("create", *args)
+      self.exec("lxc-create", *args)
       self.state
     end
 
@@ -87,7 +87,7 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     def destroy(*args)
       self.stop
-      self.exec("destroy", *args)
+      self.exec("lxc-destroy", *args)
     end
 
     # Start the container
@@ -97,7 +97,7 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     # @return [Symbol] The state of the container.
     def start(*args)
-      self.exec("start", "--daemon", *args)
+      self.exec("lxc-start", "--daemon", *args)
       self.state
     end
 
@@ -108,7 +108,7 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     # @return [Symbol] The state of the container.
     def stop(*args)
-      self.exec("stop", *args)
+      self.exec("lxc-stop", *args)
       self.state
     end
 
@@ -126,7 +126,7 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     # @return [Symbol] The state of the container.
     def freeze(*args)
-      self.exec("freeze", *args)
+      self.exec("lxc-freeze", *args)
       self.state
     end
 
@@ -137,7 +137,7 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     # @return [Symbol] The state of the container.
     def unfreeze(*args)
-      self.exec("unfreeze", *args)
+      self.exec("lxc-unfreeze", *args)
       self.state
     end
 
@@ -148,7 +148,7 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     # @return [Array] Lines of output from the executed command.
     def info(*args)
-      self.exec("info", *args).split("\n").uniq.flatten
+      self.exec("lxc-info", *args).split("\n").uniq.flatten
     end
 
     # State of the container
@@ -201,7 +201,7 @@ class LXC
 
       begin
         Timeout::timeout(timeout) do
-          self.exec("wait", "-s", %('#{state_arg}'))
+          self.exec("lxc-wait", "-s", %('#{state_arg}'))
         end
       rescue Timeout::Error => e
         return false

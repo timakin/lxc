@@ -85,7 +85,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] A list of container names.
   def ls(*args)
-    self.exec("ls", *args).split("\n").uniq
+    self.exec("lxc-ls", *args).split("\n").uniq
   end
 
   # Check if a container exists
@@ -106,7 +106,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Output text of the "lxc-ps" command.
   def ps(*args)
-    self.exec("ps", *args).split("\n")
+    self.exec("lxc-ps", *args).split("\n")
   end
 
   # Linux container version
@@ -116,7 +116,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [String] The installed version of LXC.
   def version(*args)
-    result = self.exec("version", *args).scan(REGEX_VERSION)
+    result = self.exec("lxc-version", *args).scan(REGEX_VERSION)
     result.flatten!.compact!
 
     result.first.strip
@@ -129,7 +129,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Output text of the "lxc-checkconfig" command.
   def checkconfig(*args)
-    self.exec("checkconfig", *args, " | #{SED_REMOVE_ANSI}").split("\n")
+    self.exec("lxc-checkconfig", *args, " | #{SED_REMOVE_ANSI}").split("\n")
   end
 
   # Linux container command execution wrapper
@@ -150,7 +150,7 @@ class LXC
     arguments = Array.new
     arguments << %(sudo) if (@use_sudo == true)
     arguments << %(DEBIAN_FRONTEND="noninteractive")
-    arguments << %(lxc-#{command})
+    arguments << command
     arguments << args
     arguments = arguments.flatten.compact.join(' ')
 
