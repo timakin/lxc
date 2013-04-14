@@ -148,8 +148,9 @@ class LXC
     command = args.shift
 
     arguments = Array.new
-    arguments << "sudo" if (@use_sudo == true)
-    arguments << "lxc-#{command}"
+    arguments << %(sudo) if (@use_sudo == true)
+    arguments << %(DEBIAN_FRONTEND="noninteractive")
+    arguments << %(lxc-#{command})
     arguments << args
     arguments = arguments.flatten.compact.join(' ')
 
