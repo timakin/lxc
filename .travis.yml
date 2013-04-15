@@ -10,7 +10,7 @@ before_install:
 
 bundler_args: --binstubs
 
-script: "COVERAGE=1 bin/rake test"
+script: "bin/rake test"
 
 notifications:
   irc: "irc.freenode.net#jovelabs"
