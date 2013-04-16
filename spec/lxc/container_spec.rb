@@ -31,48 +31,64 @@ describe LXC::Container do
 
         describe "#stopped?" do
           it "should return true for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.stopped?.should == true
           end
         end
 
         describe "#starting?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.starting?.should == false
           end
         end
 
         describe "#running?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.running?.should == false
           end
         end
 
         describe "#stopping?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.stopping?.should == false
           end
         end
 
         describe "#aborting?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.aborting?.should == false
           end
         end
 
         describe "#freezing?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.freezing?.should == false
           end
         end
 
         describe "#frozen?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.frozen?.should == false
           end
         end
 
         describe "#thawed?" do
           it "should return false for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
             subject.thawed?.should == false
           end
         end
