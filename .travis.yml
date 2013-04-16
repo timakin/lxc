@@ -1,17 +1,12 @@
 language: ruby
 
 rvm:
+  - ree
   - 1.9.2
   - 1.9.3
   - 2.0.0
   - rbx-18mode
   - rbx-19mode
-
-before_install:
-  - sudo apt-get -qq -y --force-yes update
-
-notifications:
-  irc: "irc.freenode.net#jovelabs"
 
 matrix:
   include:
@@ -25,3 +20,6 @@ matrix:
     - rvm: rbx-18mode
     - rvm: rbx-19mode
     - rvm: ree
+
+notifications:
+  irc: "irc.freenode.net#jovelabs"
