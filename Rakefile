@@ -35,19 +35,6 @@ task :coveralls => [:spec, 'coveralls:push']
 
 ################################################################################
 
-# desc "Run RSpec with code coverage"
-# task :coverage do
-#   `rake spec COVERAGE=true`
-#   case RUBY_PLATFORM
-#   when /darwin/
-#     `open coverage/index.html`
-#   when /linux/
-#     `google-chrome coverage/index.html`
-#   end
-# end
-
-################################################################################
-
 require 'yard'
 require 'yard/rake/yardoc_task'
 
