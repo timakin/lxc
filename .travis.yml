@@ -10,8 +10,23 @@ rvm:
   - rbx-18mode
   - rbx-19mode
 
+  JRUBY_OPTS="--1.9 -J-Xmx400m -Xcext.enabled=true"
+
 before_install:
   - sudo apt-get -qq -y --force-yes update
 
 notifications:
   irc: "irc.freenode.net#jovelabs"
+
+matrix:
+  include:
+    - rvm: jruby-18mode
+      env: JRUBY_OPTS="$JRUBY_OPTS -Xcext.enabled=true"
+    - rvm: jruby-19mode
+      env: JRUBY_OPTS="$JRUBY_OPTS -Xcext.enabled=true"
+  allow_failures:
+    - rvm: jruby-18mode
+    - rvm: jruby-19mode
+    - rvm: rbx-18mode
+    - rvm: rbx-19mode
+    - rvm: ree
