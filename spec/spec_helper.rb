@@ -20,9 +20,12 @@
 require 'simplecov'
 require 'coveralls'
 
-if ENV['TRAVIS-CI']
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-end
+# SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
 
 SimpleCov.start do
   add_filter '/spec/'
