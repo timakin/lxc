@@ -17,23 +17,9 @@
 #   limitations under the License.
 #
 ################################################################################
-require 'simplecov'
 require 'coveralls'
-
-# SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
-]
-
-SimpleCov.start do
-  add_filter '/spec/'
-end
-
 Coveralls.wear!
 ################################################################################
-
 require 'lxc'
 
 LXC_VERSIONS = %w(0.7.5 0.8.0-rc2)
