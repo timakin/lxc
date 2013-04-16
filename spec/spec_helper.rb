@@ -25,6 +25,6 @@ require 'lxc'
 LXC_VERSIONS = %w(0.7.5 0.8.0-rc2)
 
 def lxc_fixture(version, filename)
-  filepath = File.expand_path(File.join(File.dirname(__FILE__), "fixtures", version, filename))
+  filepath = File.expand_path(File.join(File.dirname(__FILE__), "support", "fixtures", version, filename))
   IO.read(filepath)
 end
