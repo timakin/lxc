@@ -1,16 +1,11 @@
 language: ruby
 
 rvm:
-  - ree
   - 1.9.2
   - 1.9.3
   - 2.0.0
-  - jruby-18mode
-  - jruby-19mode
   - rbx-18mode
   - rbx-19mode
-
-  JRUBY_OPTS="--1.9 -J-Xmx400m -Xcext.enabled=true"
 
 before_install:
   - sudo apt-get -qq -y --force-yes update
@@ -21,9 +16,9 @@ notifications:
 matrix:
   include:
     - rvm: jruby-18mode
-      env: JRUBY_OPTS="$JRUBY_OPTS -Xcext.enabled=true"
+      env: JRUBY_OPTS="--1.8 -Xcext.enabled=true"
     - rvm: jruby-19mode
-      env: JRUBY_OPTS="$JRUBY_OPTS -Xcext.enabled=true"
+      env: JRUBY_OPTS="--1.9 -Xcext.enabled=true"
   allow_failures:
     - rvm: jruby-18mode
     - rvm: jruby-19mode
