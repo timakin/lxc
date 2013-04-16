@@ -8,9 +8,5 @@ rvm:
 before_install:
   - sudo apt-get -qq -y --force-yes update
 
-bundler_args: --binstubs
-
-script: "bin/rake test"
-
 notifications:
   irc: "irc.freenode.net#jovelabs"
