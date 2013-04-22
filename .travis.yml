@@ -7,7 +7,7 @@ rvm:
 
 before_install:
   - sudo apt-get -qq update
-  - RUNLEVEL=1 sudo apt-get -qq install lxc
+  - sudo RUNLEVEL=1 apt-get -qq install lxc
 
 notifications:
   irc: "irc.freenode.net#jovelabs"
