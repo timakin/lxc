@@ -88,7 +88,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] A list of container names.
   def ls(*args)
-    self.exec("lxc-ls", *args).split("\n").uniq
+    self.exec("lxc-ls", *args).split("\n").join(' ').split.uniq
   end
 
   # Check if a container exists
