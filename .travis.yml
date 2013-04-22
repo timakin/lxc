@@ -5,12 +5,7 @@ rvm:
   - 1.9.3
   - 2.0.0
 
-before_install:
-  - sudo apt-get -qq update
-  - echo '#!/bin/sh' > /usr/sbin/policy-rc.d
-  - echo 'exit 101' >> /usr/sbin/policy-rc.d
-  - chmod 755 /usr/sbin/policy-rc.d
-  - sudo apt-get -qq install lxc
+before_install: sudo ./spec/support/install-lxc.sh
 
 notifications:
   irc: "irc.freenode.net#jovelabs"
