@@ -1,6 +1,5 @@
 #!/bin/bash
 apt-get -qq update
-apt-get -qq install tee
 cat <<EOF | tee /usr/sbin/policy-rc.d
 #!/bin/sh
 exit 101
