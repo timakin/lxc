@@ -8,7 +8,7 @@ require 'lxc/version'
 class LXC
 
   # Top-Level Error Class
-  class Error < StandardError; end
+  class LXCError < StandardError; end
 
   autoload :Container, 'lxc/container'
 
@@ -163,10 +163,14 @@ class LXC
         end
       end
     else
-      if @use_ssh.respond_to?(:exec!)
-        output << @use_ssh.exec!(arguments)
+      if @use_ssh.is_a?(ZTK::SSH)
+        output << @use_ssh.exec(arguments, :silence => true, :ignore_exit_status => true).output
       else
-        raise Error, "The object you assigned to use_ssh does not respond to #exec!"
+        if @use_ssh.respond_to?(:exec!)
+          output << @use_ssh.exec!(arguments)
+        else
+          raise LXCError, "The object you assigned to use_ssh does not respond to #exec!"
+        end
       end
     end
 

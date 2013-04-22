@@ -3,7 +3,7 @@ require 'timeout'
 class LXC
 
   # Container Error Class
-  class ContainerError < Error; end
+  class ContainerError < LXCError; end
 
   # Main Container Class
   #
