@@ -117,6 +117,12 @@ describe LXC::Container do
           end
         end
 
+        describe "#config" do
+          it "should return an LXC::Config object" do
+            subject.config.should be_kind_of(LXC::Config)
+          end
+        end
+
         describe "#wait" do
           it "should be successfully when waiting to stop a non-existant container" do
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-wait.out") }
