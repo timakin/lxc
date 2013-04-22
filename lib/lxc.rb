@@ -10,6 +10,7 @@ class LXC
   # Top-Level Error Class
   class LXCError < StandardError; end
 
+  autoload :Config, 'lxc/config'
   autoload :Container, 'lxc/container'
 
   # Controls if sudo is prefixed on all executed commands.
@@ -56,6 +57,13 @@ class LXC
     @use_ssh  = (options[:use_ssh] || nil)
   end
 
+  # LXC configuration class
+  #
+  # Gets the LXC configuration class object
+  #
+  # @return [LXC::Config] Returns the LXC configuration object.
+  def config
+    @config ||= LXC::Config.new(self, "/etc/lxc/lxc.conf")
   end
 
   # Initialize container object

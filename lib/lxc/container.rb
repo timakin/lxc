@@ -72,6 +72,15 @@ class LXC
       @name = name
     end
 
+    # LXC configuration class
+    #
+    # Gets the LXC configuration class object
+    #
+    # @return [LXC::Config] Returns the LXC configuration object.
+    def config
+      @config ||= LXC::Config.new(@lxc, "/etc/lxc/#{@name}.conf")
+    end
+
     # Create the container
     #
     # Runs the "lxc-create" command.
