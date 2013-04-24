@@ -78,7 +78,7 @@ class LXC
     #
     # @return [LXC::Config] Returns the LXC configuration object.
     def config
-      @config ||= LXC::Config.new(@lxc, "/etc/lxc/#{@name}.conf")
+      @config ||= LXC::Config.new(@lxc, "/etc/lxc/#{@name}")
     end
 
     # Create the container
