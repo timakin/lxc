@@ -8,6 +8,8 @@ class LXC
   # @author Zachary Patten <zachary@jovelabs.net>
   class Config
 
+    attr_accessor :networks
+
     def initialize(lxc, filename)
       raise ConfigError, "You must supply a LXC object!" if lxc.nil?
       raise ConfigError, "You must supply a configuration filename!" if filename.nil?
@@ -15,7 +17,7 @@ class LXC
       @lxc      = lxc
       @filename = filename
 
-      self.load
+      self.clear
     end
 
     # Loads the specified LXC configuration
@@ -25,7 +27,7 @@ class LXC
     #
     # @return [Hash] LXC configuration hash.
     def load
-      @config = parse_config(@lxc.exec("cat #{@filename} 2>/dev/null"))
+      parse_config(@lxc.exec("cat #{@filename} 2>/dev/null"))
     end
 
     # Saves the specified LXC configuration
@@ -34,7 +36,7 @@ class LXC
     #
     # @return [Hash] LXC configuration hash.
     def save
-      use_sudo = (@lxc.use_sudo ? 'sudo ' : '')
+      use_sudo = (@lxc.use_sudo ? 'sudo ' : nil)
 
       script = Array.new
       script << "cat <<EOF | #{use_sudo}tee #{@filename}"
@@ -43,8 +45,19 @@ class LXC
       script = script.join("\n")
 
       @lxc.exec(script)
+    end
 
-      @config
+    # Clear configuration
+    #
+    # Clears out the current configuration, leaving an empty configuration
+    # behind
+    #
+    # @return [Hash] LXC configuration hash.
+    def clear
+      @config   = Hash.new
+      @networks = Array.new
+
+      true
     end
 
     # Configuration keys
@@ -69,7 +82,7 @@ class LXC
     #
     # Allows setting the internal hash values.
     def []=(key, value)
-      @config.merge!(key => value)
+      @config.merge!(key => [value]) { |k,o,n| k = (o + n) }
     end
 
     # Configuration Key/Value Query
@@ -87,23 +100,57 @@ class LXC
 
   private
 
+    def build_values(key, value)
+      content = Array.new
+
+      if value.is_a?(Array)
+        value.each do |v|
+          content << "#{key} = #{v}"
+        end
+      else
+        content << "#{key} = #{value}"
+      end
+
+      content
+    end
+
     def build_config
       content = Array.new
       @config.each do |key, value|
-        content << "#{key} = #{value}"
+        content << build_values(key, value)
       end
-      content.sort.join("\n")
+      @networks.each do |network|
+        network.each do |key, value|
+          content << build_values(key, value)
+        end
+      end
+      content.join("\n")
     end
 
     def parse_config(content)
-      config = Hash.new
+      @config   = Hash.new
+      @networks = Array.new
+      network   = nil
 
       content.split("\n").map(&:strip).each do |line|
         key, value = line.split('=').map(&:strip)
-        config.merge!(key => value)
+        if key =~ /network/
+          if key =~ /network.type/
+            # this is a new network object
+            @networks << network
+            network = Hash.new
+          else
+            # add to previous network object
+          end
+          network.merge!(key => [value]) { |k,o,n| k = (o + n) }
+        else
+          @config.merge!(key => [value]) { |k,o,n| k = (o + n) }
+        end
       end
+      @networks << network
+      @networks.compact!
 
-      config
+      true
     end
 
   end
