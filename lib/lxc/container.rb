@@ -176,7 +176,7 @@ class LXC
       result = self.info("--state", *args).collect{ |str| str.scan(REGEX_STATE) }
       result.flatten!.compact!
 
-      result.first.strip.downcase.to_sym
+      (result.first.strip.downcase.to_sym rescue :unknown)
     end
 
     # PID of the container
@@ -189,7 +189,7 @@ class LXC
       result = self.info("--pid", *args).collect{ |str| str.scan(REGEX_PID) }
       result.flatten!.compact!
 
-      result.first.strip.to_i
+      (result.first.strip.to_i rescue -1)
     end
 
     # Does the container exist?
