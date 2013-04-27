@@ -71,6 +71,56 @@
 
 <p>An interface for controlling local or remote Linux Containers (LXC).</p>
 
+<h1>EXAMPLES</h1>
+
+<p>Given the following code:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lxc</span><span class='tstring_end'>'</span></span>
+
+<span class='id identifier rubyid_lxc'>lxc</span> <span class='op'>=</span> <span class='const'>LXC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:use_sudo</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_lxc'>lxc</span><span class='period'>.</span><span class='id identifier rubyid_use_sudo'>use_sudo</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='id identifier rubyid_lxc'>lxc</span><span class='period'>.</span><span class='id identifier rubyid_version'>version</span>
+<span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='const'>LXC</span><span class='op'>::</span><span class='const'>Container</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:lxc</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_lxc'>lxc</span><span class='comma'>,</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>test</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_running?'>running?</span>
+<span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+</code></pre>
+
+<p>Executed via the lxc-console development binary:</p>
+
+<pre class="code ruby"><code class="ruby">$ be ./bin/lxc-console
+
+From: /home/zpatten/Dropbox/code/personal/testlab-repo/vendor/checkouts/lxc/bin/lxc-console @ line 12 Object#lxc_console:
+
+     3: def lxc_console
+     4:   require 'pry'
+     5:   require 'lxc'
+     6:
+     7:   ##
+     8:   #
+     9:   # Welcome to the LXC RubyGem console!
+    10:   #
+    11:   ##
+ =&gt; 12:   binding.pry
+    13: end
+
+[1] pry(main)&gt; require 'lxc'
+=&gt; false
+[2] pry(main)&gt;
+[3] pry(main)&gt; lxc = LXC.new(:use_sudo =&gt; true)
+=&gt; #&lt;LXC use_sudo=true use_ssh=false&gt;
+[4] pry(main)&gt; lxc.use_sudo = true
+=&gt; true
+[5] pry(main)&gt; lxc.version
+=&gt; &quot;0.8.0-rc2&quot;
+[6] pry(main)&gt; c = LXC::Container.new(:lxc =&gt; lxc, :name =&gt; 'test')
+=&gt; #&lt;LXC::Container name=&quot;test&quot;&gt;
+[7] pry(main)&gt; c.running?
+=&gt; false
+[8] pry(main)&gt; c.exists?
+=&gt; false
+[9] pry(main)&gt;
+</code></pre>
+
 <h1>RESOURCES</h1>
 
 <p>Documentation:</p>
@@ -116,7 +166,7 @@ limitations under the License.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Sat Apr 27 10:37:08 2013 by
+  Generated on Sat Apr 27 11:14:34 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
