@@ -78,7 +78,7 @@ class LXC
   # @param [String] name The container name to initalize.
   # @return [LXC::Container] Returns the container object.
   def container(name)
-    LXC::Container.new(self, name)
+    LXC::Container.new(:lxc => self, :name => name)
   end
 
   # Current containers
@@ -90,7 +90,7 @@ class LXC
   def containers
     container_names = self.ls
     container_names.map do |container_name|
-      LXC::Container.new(self, container_name)
+      LXC::Container.new(:lxc => self, :name => container_name)
     end
   end
 

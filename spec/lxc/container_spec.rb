@@ -4,7 +4,7 @@ describe LXC::Container do
 
   TEST_CONTAINER_NAME = "test-container"
 
-  subject { LXC::Container.new(LXC.new, TEST_CONTAINER_NAME) }
+  subject { LXC::Container.new(:lxc => LXC.new, :name => TEST_CONTAINER_NAME) }
 
   describe "class" do
 
