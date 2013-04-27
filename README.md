@@ -8,6 +8,56 @@
 
 An interface for controlling local or remote Linux Containers (LXC).
 
+# EXAMPLES
+
+
+Given the following code:
+
+    require 'lxc'
+
+    lxc = LXC.new(:use_sudo => true)
+    lxc.use_sudo = true
+    lxc.version
+    c = LXC::Container.new(:lxc => lxc, :name => 'test')
+    c.running?
+    c.exists?
+
+Executed via the lxc-console development binary:
+
+    $ be ./bin/lxc-console
+
+    From: /home/zpatten/Dropbox/code/personal/testlab-repo/vendor/checkouts/lxc/bin/lxc-console @ line 12 Object#lxc_console:
+
+         3: def lxc_console
+         4:   require 'pry'
+         5:   require 'lxc'
+         6:
+         7:   ##
+         8:   #
+         9:   # Welcome to the LXC RubyGem console!
+        10:   #
+        11:   ##
+     => 12:   binding.pry
+        13: end
+
+    [1] pry(main)> require 'lxc'
+    => false
+    [2] pry(main)>
+    [3] pry(main)> lxc = LXC.new(:use_sudo => true)
+    => #<LXC use_sudo=true use_ssh=false>
+    [4] pry(main)> lxc.use_sudo = true
+    => true
+    [5] pry(main)> lxc.version
+    => "0.8.0-rc2"
+    [6] pry(main)> c = LXC::Container.new(:lxc => lxc, :name => 'test')
+    => #<LXC::Container name="test">
+    [7] pry(main)> c.running?
+    => false
+    [8] pry(main)> c.exists?
+    => false
+    [9] pry(main)>
+
+
 # RESOURCES
 
 Documentation:
