@@ -217,6 +217,7 @@ class LXC
     def console
       self.exec("lxc-console")
     end
+
     # Wait for a specific container state
     #
     # Runs the "lxc-wait" command.
@@ -259,7 +260,7 @@ class LXC
     def exec(*args)
       arguments = Array.new
       arguments << args.shift
-      arguments << %(--name=#{self.name})
+      arguments << %(-n #{self.name})
       arguments << args
       arguments.flatten!.compact!
 
