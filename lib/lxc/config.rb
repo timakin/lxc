@@ -8,7 +8,7 @@ class LXC
   # @author Zachary Patten <zachary@jovelabs.net>
   class Config
 
-    attr_accessor :networks
+    attr_accessor :networks, :filename
 
     def initialize(lxc, filename)
       raise ConfigError, "You must supply a LXC object!" if lxc.nil?
