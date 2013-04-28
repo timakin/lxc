@@ -176,10 +176,14 @@ class LXC
     # @param [Array] args Additional command-line arguments.
     # @return [Symbol] Current state of the container.
     def state(*args)
-      result = self.info("--state", *args).collect{ |str| str.scan(REGEX_STATE) }
-      result.flatten!.compact!
+      if self.exists?
+        result = self.info("--state", *args).collect{ |str| str.scan(REGEX_STATE) }
+        result.flatten!.compact!
 
-      (result.first.strip.downcase.to_sym rescue :unknown)
+        (result.first.strip.downcase.to_sym rescue :unknown)
+      else
+        :not_created
+      end
     end
 
     # PID of the container
