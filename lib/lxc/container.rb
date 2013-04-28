@@ -202,6 +202,14 @@ class LXC
       @lxc.exists?(self.name)
     end
 
+    # Run an application inside a container
+    #
+    # Launches the container, executing the supplied application inside it.
+    #
+    # @see lxc-execute
+    def execute(*args)
+      self.exec("lxc-execute", "-f", self.config.filename, "--", *args)
+    end
     # Wait for a specific container state
     #
     # Runs the "lxc-wait" command.
