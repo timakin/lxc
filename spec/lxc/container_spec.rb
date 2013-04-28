@@ -29,11 +29,19 @@ describe LXC::Container do
     LXC_VERSIONS.each do |lxc_version|
       context "LXC Target Version #{lxc_version}" do
 
+        describe "#not_created?" do
+          it "should return true for an un-created container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
+
+            subject.not_created?.should == true
+          end
+        end
+
         describe "#stopped?" do
           it "should return true for an un-created container" do
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
-            subject.stopped?.should == true
+            subject.stopped?.should == false
           end
         end
 
@@ -110,10 +118,10 @@ describe LXC::Container do
         end
 
         describe "#state" do
-          it "should return stopped for an un-created container" do
+          it "should return not_created for an un-created container" do
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
-            subject.state.should == :stopped
+            subject.state.should == :not_created
           end
         end
 

@@ -12,7 +12,7 @@ class LXC
 
     # An array containing the valid container states extracted from the LXC
     # c-source code.
-    STATES = %w(stopped starting running stopping aborting freezing frozen thawed).map(&:to_sym)
+    STATES = %w(stopped starting running stopping aborting freezing frozen thawed not_created).map(&:to_sym)
 
     # @!method stopped?
     #   Returns true if the container is stopped, false otherwise.
