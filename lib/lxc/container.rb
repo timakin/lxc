@@ -211,6 +211,16 @@ class LXC
       self.exec("lxc-execute", "-f", self.config.filename, "--", *args)
     end
 
+    # Run an application inside a container
+    #
+    # Executes the supplied application inside a container.  The container must
+    # already be running.
+    #
+    # @see lxc-attach
+    def attach(*args)
+      self.exec("lxc-attach", "--", *args)
+    end
+
     # Launch a console for the container
     #
     # @see lxc-console
