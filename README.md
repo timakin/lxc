@@ -60,6 +60,10 @@ Executed via the lxc-console development binary:
 
 # RESOURCES
 
+IRC:
+
+* #jovelabs on irc.freenode.net
+
 Documentation:
 
 * http://zpatten.github.io/lxc/
