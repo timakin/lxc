@@ -210,6 +210,13 @@ class LXC
     def execute(*args)
       self.exec("lxc-execute", "-f", self.config.filename, "--", *args)
     end
+
+    # Launch a console for the container
+    #
+    # @see lxc-console
+    def console
+      self.exec("lxc-console")
+    end
     # Wait for a specific container state
     #
     # Runs the "lxc-wait" command.
