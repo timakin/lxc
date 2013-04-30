@@ -281,6 +281,13 @@ class LXC
       @lxc.exec(*arguments)
     end
 
+    # Root directory for the containers file system
+    #
+    # @return [String] The root directory for the container.
+    def fs_root
+      File.join('/', 'var', 'lib', 'lxc', self.name, 'rootfs')
+    end
+
     # Provides a concise string representation of the class
     # @return [String]
     def inspect
