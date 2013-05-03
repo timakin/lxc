@@ -92,7 +92,6 @@ class LXC
     # @return [Symbol] The state of the container.
     def create(*args)
       self.exec("lxc-create", *args)
-      self.state
     end
 
     # Destroy the container
@@ -105,7 +104,6 @@ class LXC
     # @return [Symbol] The state of the container.
     def destroy(*args)
       self.exec("lxc-destroy", *args)
-      self.state
     end
 
     # Start the container
@@ -116,7 +114,6 @@ class LXC
     # @return [Symbol] The state of the container.
     def start(*args)
       self.exec("lxc-start", "--daemon", *args)
-      self.state
     end
 
     # Stop the container
@@ -127,7 +124,6 @@ class LXC
     # @return [Symbol] The state of the container.
     def stop(*args)
       self.exec("lxc-stop", *args)
-      self.state
     end
 
     # Restart the container
@@ -145,7 +141,6 @@ class LXC
     # @return [Symbol] The state of the container.
     def freeze(*args)
       self.exec("lxc-freeze", *args)
-      self.state
     end
 
     # Unfreeze (thaw) the container
@@ -156,7 +151,6 @@ class LXC
     # @return [Symbol] The state of the container.
     def unfreeze(*args)
       self.exec("lxc-unfreeze", *args)
-      self.state
     end
 
     # Information on the container
