@@ -165,7 +165,6 @@ class LXC
 
     arguments = Array.new
     arguments << %(sudo) if (@use_sudo == true)
-    arguments << %(DEBIAN_FRONTEND="noninteractive")
     arguments << command
     arguments << args
     arguments = arguments.flatten.compact.join(' ')
