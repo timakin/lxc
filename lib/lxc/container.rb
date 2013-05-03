@@ -239,14 +239,15 @@ class LXC
     # The timeout only works when using remote control via SSH and will orphan
     # the process ('lxc-wait') on the remote host.
     #
-    # @param [Array] states An array of container states for which we will wait
-    #   for the container to change state to.
+    # @param [Symbol,Array] states A single symbol or an array of symbols
+    #   representing container states for which we will wait for the container
+    #   to change state to.
     # @param [Integer] timeout How long in seconds we will wait before the
     #   operation times out.
     # @return [Boolean] Returns true of the state change happened, false
     #   otherwise.
     def wait(states, timeout=60)
-      state_arg = states.map do |state|
+      state_arg = [states].flatten.map do |state|
         state.to_s.upcase.strip
       end.join('|')
 
