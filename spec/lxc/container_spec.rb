@@ -206,6 +206,19 @@ describe LXC::Container do
           end
         end
 
+        describe "#execute" do
+          it "should execute the supplied command inside the container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-attach.out") }
+            subject.execute('whoami').strip.should == 'root'
+          end
+        end
+
+        describe "#fs_root" do
+          it "should return the path to our containers filesystem" do
+            subject.fs_root.should == '/var/lib/lxc/test-container/rootfs'
+          end
+        end
+
         describe "#config" do
           it "should return an LXC::Config object" do
             subject.config.should be_kind_of(LXC::Config)
