@@ -144,6 +144,20 @@ describe LXC::Container do
           end
         end
 
+        describe "#create" do
+          it "should create the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-create.out") }
+            subject.create('-f', '/etc/lxc/dummy', '-t', 'ubuntu')
+          end
+        end
+
+        describe "#destroy" do
+          it "should destroy the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-destroy.out") }
+            subject.destroy
+          end
+        end
+
         describe "#config" do
           it "should return an LXC::Config object" do
             subject.config.should be_kind_of(LXC::Config)

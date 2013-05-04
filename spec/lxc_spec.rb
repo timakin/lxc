@@ -48,6 +48,15 @@ describe LXC do
     LXC_VERSIONS.each do |lxc_version|
       context "LXC Target Version #{lxc_version}" do
 
+        describe "#config" do
+
+          it "should return us an instance of the LXC::Config class representing the main LXC configuration file" do
+            subject.config.should be_kind_of(LXC::Config)
+            subject.config.filename.should == "/etc/lxc/lxc.conf"
+          end
+
+        end
+
         describe "#ls" do
 
           context "with containers" do
