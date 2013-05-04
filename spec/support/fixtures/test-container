@@ -1,0 +1,9 @@
+lxc.utsname = server-east-1
+lxc.arch = amd64
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = br0
+lxc.network.name = eth0
+lxc.network.hwaddr = 00:00:5e:b7:e5:15
+lxc.network.ipv4 = 10.10.0.254/16 255.255.0.0
+lxc.network.ipv4.gateway = auto
