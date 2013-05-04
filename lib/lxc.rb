@@ -1,6 +1,6 @@
 ################################################################################
 #
-#      Author: Zachary Patten <zachary AT jovelabs DOT net>
+#      Author: Zachary Patten <zachary AT jovelabs DOT com>
 #   Copyright: Copyright (c) Zachary Patten
 #     License: Apache License, Version 2.0
 #
@@ -23,7 +23,7 @@ require 'lxc/version'
 
 # Top-Level LXC Class
 #
-# @author Zachary Patten <zachary AT jovelabs DOT net>
+# @author Zachary Patten <zachary AT jovelabs DOT com>
 class LXC
 
   # Top-Level Error Class
