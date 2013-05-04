@@ -82,6 +82,13 @@ describe LXC::Config do
       end
     end
 
+    describe "#save" do
+      it "should allow us to save the configuration to disk" do
+        subject.filename = Tempfile.new('save').path
+        subject.save
+      end
+    end
+
   end
 
 end
