@@ -61,6 +61,12 @@ describe LXC::Config do
       end
     end
 
+    describe "#[]=" do
+      it "should let us set values" do
+        subject['lxc.utsname'] = "funkytown"
+      end
+    end
+
     describe "#keys" do
       it "should return all of the keys in the configuration" do
         subject.keys.should be_kind_of(Array)
@@ -84,6 +90,7 @@ describe LXC::Config do
 
     describe "#save" do
       it "should allow us to save the configuration to disk" do
+        subject['lxc.utsname'] = "funkytown"
         subject.filename = Tempfile.new('save').path
         subject.save
       end
