@@ -64,6 +64,11 @@ class LXC
     # @return [String] Container name
     attr_reader :name
 
+    # Returns the parent LXC class instance
+    #
+    # @return [LXC] Parent LXC class instance.
+    attr_reader :lxc
+
     # @param [Hash] options Options hash.
     # @option options [LXC] :lxc Our parent LXC class instance.
     # @option options [String] :name The name of the container.

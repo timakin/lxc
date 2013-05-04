@@ -142,6 +142,12 @@ describe LXC::Container do
 
             subject.state.should == :not_created
           end
+
+          it "should return unknown for a created but missing container" do
+            subject.lxc.stub(:exec) { lxc_fixture(lxc_version, "lxc-ls-w-containers.out") }
+
+            subject.state.should == :unknown
+          end
         end
 
         describe "#create" do
@@ -155,6 +161,48 @@ describe LXC::Container do
           it "should destroy the container specified in the configuration file" do
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-destroy.out") }
             subject.destroy
+          end
+        end
+
+        describe "#start" do
+          it "should start the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-start.out") }
+            subject.start
+          end
+        end
+
+        describe "#stop" do
+          it "should stop the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-stop.out") }
+            subject.stop
+          end
+        end
+
+        describe "#restart" do
+          it "should restart the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-restart.out") }
+            subject.restart
+          end
+        end
+
+        describe "#freeze" do
+          it "should freeze the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-freeze.out") }
+            subject.freeze
+          end
+        end
+
+        describe "#unfreeze" do
+          it "should unfreeze the container specified in the configuration file" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-unfreeze.out") }
+            subject.unfreeze
+          end
+        end
+
+        describe "#attach" do
+          it "should execute the supplied command inside the container" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-attach.out") }
+            subject.attach('whoami').strip.should == 'root'
           end
         end
 

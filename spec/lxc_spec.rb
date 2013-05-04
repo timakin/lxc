@@ -66,7 +66,7 @@ describe LXC do
 
               subject.ls.should be_kind_of(Array)
               subject.ls.should_not be_empty
-              subject.ls.size.should eq(1)
+              subject.ls.size.should eq(2)
             end
 
           end
@@ -162,7 +162,7 @@ describe LXC do
               subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-ls-w-containers.out") }
 
               subject.containers.should be_kind_of(Array)
-              subject.containers.size.should eq(1)
+              subject.containers.size.should eq(2)
             end
           end
 
