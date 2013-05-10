@@ -100,6 +100,8 @@ class LXC
 
   private
 
+    NETWORK_KEY_ORDER = %w(lxc.network.type lxc.network.flags lxc.network.link lxc.network.name lxc.network.hwaddr lxc.network.ipv4 lxc.network.ipv6)
+
     def build_values(key, value)
       content = Array.new
 
@@ -120,8 +122,12 @@ class LXC
         content << build_values(key, value)
       end
       @networks.each do |network|
-        network.each do |key, value|
-          content << build_values(key, value)
+        network_keys = (network.keys - NETWORK_KEY_ORDER)
+        NETWORK_KEY_ORDER.each do |key|
+          network.has_key?(key) and (content << build_values(key, network[key]))
+        end
+        network_keys.each do |key|
+          content << build_values(key, network[key])
         end
       end
       content.join("\n")
