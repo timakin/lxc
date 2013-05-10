@@ -145,7 +145,7 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Output text of the "lxc-checkconfig" command.
   def checkconfig(*args)
-    self.exec("lxc-checkconfig", *args, " | #{SED_REMOVE_ANSI}").split("\n")
+    ZTK::ANSI.uncolor(self.exec("lxc-checkconfig", *args)).split("\n")
   end
 
   # Linux container command execution wrapper
