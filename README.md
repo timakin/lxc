@@ -57,6 +57,13 @@ Executed via the lxc-console development binary:
     => false
     [9] pry(main)>
 
+# RUBIES TESTED AGAINST
+
+* Ruby 1.8.7 (REE)
+* Ruby 1.8.7 (MBARI)
+* Ruby 1.9.2
+* Ruby 1.9.3
+* Ruby 2.0.0
 
 # RESOURCES
 
