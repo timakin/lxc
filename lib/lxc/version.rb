@@ -2,7 +2,7 @@ class LXC
 
   unless const_defined?(:VERSION)
     # LXC Gem Version
-    VERSION = "0.2.2"
+    VERSION = "0.2.3"
   end
 
 end
