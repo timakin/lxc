@@ -221,7 +221,7 @@ class LXC
     #
     # @see lxc-attach
     def attach(*args)
-      self.exec("lxc-attach", "--", *args)
+      self.exec("lxc-attach", *args)
     end
 
     # Launch a console for the container
