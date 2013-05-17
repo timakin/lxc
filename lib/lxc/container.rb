@@ -94,7 +94,7 @@ class LXC
     # Runs the "lxc-create" command.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Symbol] The state of the container.
+    # @return [Array<String>] Lines of output from the executed command.
     def create(*args)
       self.exec("lxc-create", *args)
     end
@@ -106,7 +106,7 @@ class LXC
     # the 'lxc-destroy' man page for more details.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Symbol] The state of the container.
+    # @return [Array<String>] Lines of output from the executed command.
     def destroy(*args)
       self.exec("lxc-destroy", *args)
     end
@@ -116,9 +116,18 @@ class LXC
     # Runs the "lxc-start" command with the "--daemon" flag.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Symbol] The state of the container.
+    # @return [Array<String>] Lines of output from the executed command.
     def start(*args)
       self.exec("lxc-start", "--daemon", *args)
+    end
+
+    # Start an ephemeral copy of the container
+    #
+    # Runs the "lxc-start-ephemeral" command.
+    # @return [Array<String>] Lines of output from the executed command.
+    # @see lxc-start-ephemeral
+    def start_ephemeral(*args)
+      self.exec("lxc-start-ephemeral", *args)
     end
 
     # Stop the container
@@ -126,7 +135,7 @@ class LXC
     # Runs the "lxc-stop" command.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Symbol] The state of the container.
+    # @return [Array<String>] Lines of output from the executed command.
     def stop(*args)
       self.exec("lxc-stop", *args)
     end
@@ -143,7 +152,7 @@ class LXC
     # Runs the "lxc-freeze" command.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Symbol] The state of the container.
+    # @return [Array<String>] Lines of output from the executed command.
     def freeze(*args)
       self.exec("lxc-freeze", *args)
     end
@@ -153,7 +162,7 @@ class LXC
     # Runs the "lxc-unfreeze" command.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Symbol] The state of the container.
+    # @return [Array<String>] Lines of output from the executed command.
     def unfreeze(*args)
       self.exec("lxc-unfreeze", *args)
     end
@@ -163,7 +172,7 @@ class LXC
     # Runs the "lxc-info" command.
     #
     # @param [Array] args Additional command-line arguments.
-    # @return [Array] Lines of output from the executed command.
+    # @return [Array<String>] Lines of output from the executed command.
     def info(*args)
       self.exec("lxc-info", *args).split("\n").uniq.flatten
     end
