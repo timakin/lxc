@@ -127,7 +127,7 @@ class LXC
     # @return [Array<String>] Lines of output from the executed command.
     # @see lxc-start-ephemeral
     def start_ephemeral(*args)
-      self.exec("lxc-start-ephemeral", *args)
+      self.lxc.exec("lxc-start-ephemeral", *args)
     end
 
     # Stop the container
