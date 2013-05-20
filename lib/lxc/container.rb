@@ -124,10 +124,21 @@ class LXC
     # Start an ephemeral copy of the container
     #
     # Runs the "lxc-start-ephemeral" command.
+    #
     # @return [Array<String>] Lines of output from the executed command.
     # @see lxc-start-ephemeral
     def start_ephemeral(*args)
       self.lxc.exec("lxc-start-ephemeral", *args)
+    end
+
+    # Clone the container
+    #
+    # Runs the "lxc-clone" command.
+    #
+    # @return [Array<String>] Lines of output from the executed command.
+    # @see lxc-clone
+    def clone(*args)
+      self.lxc.exec("lxc-clone", *args)
     end
 
     # Stop the container
