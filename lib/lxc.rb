@@ -112,7 +112,7 @@ class LXC
   # @param [String] name The name of the container to check.
   # @return [Boolean] Returns true of the container exists, false otherwise.
   def exists?(name)
-    self.ls.include?(name)
+    self.ls(%(-1)).include?(name)
   end
 
   # Linux container processes
