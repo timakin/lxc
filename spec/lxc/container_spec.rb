@@ -50,6 +50,7 @@ describe LXC::Container do
 
         describe "#not_created?" do
           it "should return true for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.not_created?.should == true
@@ -58,6 +59,7 @@ describe LXC::Container do
 
         describe "#stopped?" do
           it "should return true for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.stopped?.should == false
@@ -66,6 +68,7 @@ describe LXC::Container do
 
         describe "#starting?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.starting?.should == false
@@ -74,6 +77,7 @@ describe LXC::Container do
 
         describe "#running?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.running?.should == false
@@ -82,6 +86,7 @@ describe LXC::Container do
 
         describe "#stopping?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.stopping?.should == false
@@ -90,6 +95,7 @@ describe LXC::Container do
 
         describe "#aborting?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.aborting?.should == false
@@ -98,6 +104,7 @@ describe LXC::Container do
 
         describe "#freezing?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.freezing?.should == false
@@ -106,6 +113,7 @@ describe LXC::Container do
 
         describe "#frozen?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.frozen?.should == false
@@ -114,6 +122,7 @@ describe LXC::Container do
 
         describe "#thawed?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.thawed?.should == false
@@ -122,6 +131,7 @@ describe LXC::Container do
 
         describe "#exists?" do
           it "should return false for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-ls-wo-containers.out") }
 
             subject.exists?.should == false
@@ -138,12 +148,14 @@ describe LXC::Container do
 
         describe "#state" do
           it "should return not_created for an un-created container" do
+            subject.stub(:exists?) { false }
             subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-info-state-stopped.out") }
 
             subject.state.should == :not_created
           end
 
           it "should return unknown for a created but missing container" do
+            subject.lxc.stub(:exists?) { true }
             subject.lxc.stub(:exec) { lxc_fixture(lxc_version, "lxc-ls-w-containers.out") }
 
             subject.state.should == :unknown

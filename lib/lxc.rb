@@ -172,10 +172,14 @@ class LXC
     output = Array.new
 
     if @use_ssh.nil?
-      ::ZTK::PTY.spawn(arguments) do |reader, writer, pid|
-        while (buffer = reader.readpartial(1024))
-          output << buffer
+      begin
+        ::ZTK::PTY.spawn(arguments) do |reader, writer, pid|
+          while (buffer = reader.readpartial(1024))
+            output << buffer
+          end
         end
+      rescue EOFError
+        # NOOP
       end
     else
       if @use_ssh.is_a?(ZTK::SSH)
