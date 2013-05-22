@@ -113,12 +113,12 @@ class LXC
 
     # Start the container
     #
-    # Runs the "lxc-start" command with the "--daemon" flag.
+    # Runs the "lxc-start" command.
     #
     # @param [Array] args Additional command-line arguments.
     # @return [Array<String>] Lines of output from the executed command.
     def start(*args)
-      self.exec("lxc-start", "--daemon", *args)
+      self.exec("lxc-start", *args)
     end
 
     # Start an ephemeral copy of the container
