@@ -46,11 +46,6 @@ class LXC
   # output.
   REGEX_VERSION = /^lxc version:\s+([\w\W]+)$/
 
-  # SED command for removing ANSI colors
-  #
-  # @see http://www.commandlinefu.com/commands/view/3584/remove-color-codes-special-characters-with-sed CommandLineFu - Remove Color Codes (Special Characters) with SED
-  SED_REMOVE_ANSI = %q(sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g")
-
   # @param [Hash] options Options hash.
   # @option options [Boolean] :use_sudo (false) Whether or not to prefix all
   #   commands with 'sudo'.
