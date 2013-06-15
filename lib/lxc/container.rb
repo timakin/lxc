@@ -305,7 +305,14 @@ class LXC
     #
     # @return [String] The root directory for the container.
     def fs_root
-      File.join('/', 'var', 'lib', 'lxc', self.name, 'rootfs')
+      File.join(self.container_root, 'rootfs')
+    end
+
+    # Directory for the container
+    #
+    # @return [String] The directory for the container.
+    def container_root
+      File.join('/', 'var', 'lib', 'lxc', self.name)
     end
 
     # Provides a concise string representation of the class
