@@ -303,9 +303,16 @@ class LXC
 
     # Root directory for the containers file system
     #
+    # @param [Boolean] ephemeral True if we should construct a path to the
+    #   union filesystem used by ephemeral containers.  False if we should
+    #   construct a traditional path.
     # @return [String] The root directory for the container.
-    def fs_root
-      File.join(self.container_root, 'rootfs')
+    def fs_root(ephemeral=false)
+      if (ephemeral == true)
+        File.join(self.container_root, 'delta0')
+      else
+        File.join(self.container_root, 'rootfs')
+      end
     end
 
     # Directory for the container
