@@ -10,8 +10,9 @@ class LXC
   # Top-Level Error Class
   class LXCError < StandardError; end
 
-  autoload :Config, 'lxc/config'
+  autoload :Config,    'lxc/config'
   autoload :Container, 'lxc/container'
+  autoload :Runner,    'lxc/runner'
 
   # Controls if sudo is prefixed on all executed commands.
   #
