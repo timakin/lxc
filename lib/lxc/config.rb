@@ -140,8 +140,8 @@ class LXC
 
       content.split("\n").map(&:strip).each do |line|
         key, value = line.split('=').map(&:strip)
-        if key =~ /network/
-          if key =~ /network.type/
+        if key =~ /lxc\.network/
+          if key =~ /lxc\.network\.type/
             # this is a new network object
             @networks << network
             network = Hash.new
