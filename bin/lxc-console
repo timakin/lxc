@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 ################################################################################
 #
 #      Author: Zachary Patten <zachary AT jovelabs DOT com>
@@ -17,7 +18,8 @@
 #   limitations under the License.
 #
 ################################################################################
-#!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
 
 def lxc_console
   require 'pry'
