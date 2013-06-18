@@ -199,7 +199,8 @@ describe LXC do
               @ssh_connection = ::ZTK::SSH.new(
                 :host_name => "127.0.0.1",
                 :user => ENV['USER'],
-                :keys => "#{ENV['HOME']}/.ssh/id_rsa"
+                :keys => File.join(ENV['HOME'], '.ssh', 'id_rsa'),
+                :keys_only => true
               ).ssh
             end
 
