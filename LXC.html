@@ -95,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/lxc.rb<span class="defines">,<br />
-  lib/lxc/config.rb,<br /> lib/lxc/version.rb,<br /> lib/lxc/container.rb</span>
+  lib/lxc/runner.rb,<br /> lib/lxc/config.rb,<br /> lib/lxc/version.rb,<br /> lib/lxc/container.rb,<br /> lib/lxc/runners/shell.rb</span>
 </dd>
   
 </dl>
@@ -134,7 +134,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="LXC/Config.html" title="LXC::Config (class)">Config</a></span>, <span class='object_link'><a href="LXC/ConfigError.html" title="LXC::ConfigError (class)">ConfigError</a></span>, <span class='object_link'><a href="LXC/Container.html" title="LXC::Container (class)">Container</a></span>, <span class='object_link'><a href="LXC/ContainerError.html" title="LXC::ContainerError (class)">ContainerError</a></span>, <span class='object_link'><a href="LXC/LXCError.html" title="LXC::LXCError (class)">LXCError</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="LXC/Config.html" title="LXC::Config (class)">Config</a></span>, <span class='object_link'><a href="LXC/ConfigError.html" title="LXC::ConfigError (class)">ConfigError</a></span>, <span class='object_link'><a href="LXC/Container.html" title="LXC::Container (class)">Container</a></span>, <span class='object_link'><a href="LXC/ContainerError.html" title="LXC::ContainerError (class)">ContainerError</a></span>, <span class='object_link'><a href="LXC/LXCError.html" title="LXC::LXCError (class)">LXCError</a></span>, <span class='object_link'><a href="LXC/Runner.html" title="LXC::Runner (class)">Runner</a></span>, <span class='object_link'><a href="LXC/RunnerError.html" title="LXC::RunnerError (class)">RunnerError</a></span>
     
   
 </p>
@@ -174,7 +174,7 @@ output.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.2.12</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.2.13</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -614,14 +614,14 @@ Session.</p>
       <pre class="lines">
 
 
-54
 55
 56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@ui</span>       <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:ui</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>ZTK</span><span class='op'>::</span><span class='const'>UI</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
@@ -731,12 +731,12 @@ object.</p>
       <pre class="lines">
 
 
-43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_use_ssh'>use_ssh</span>
   <span class='ivar'>@use_ssh</span>
@@ -850,12 +850,12 @@ object.</p>
       <pre class="lines">
 
 
-27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_use_sudo'>use_sudo</span>
   <span class='ivar'>@use_sudo</span>
@@ -938,12 +938,12 @@ object.</p>
       <pre class="lines">
 
 
-142
 143
-144</pre>
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_checkconfig'>checkconfig</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='const'>ZTK</span><span class='op'>::</span><span class='const'>ANSI</span><span class='period'>.</span><span class='id identifier rubyid_uncolor'>uncolor</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lxc-checkconfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -999,12 +999,12 @@ object.</p>
       <pre class="lines">
 
 
-65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='ivar'>@config</span> <span class='op'>||=</span> <span class='const'>LXC</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/etc/lxc/lxc.conf</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1080,12 +1080,12 @@ object.</p>
       <pre class="lines">
 
 
-75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_container'>container</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='const'>LXC</span><span class='op'>::</span><span class='const'>Container</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:lxc</span> <span class='op'>=&gt;</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1137,15 +1137,15 @@ an Array.</p>
       <pre class="lines">
 
 
-85
 86
 87
 88
 89
-90</pre>
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_containers'>containers</span>
   <span class='id identifier rubyid_container_names'>container_names</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_ls'>ls</span>
@@ -1230,7 +1230,6 @@ Net::SSH Session.</p>
       <pre class="lines">
 
 
-158
 159
 160
 161
@@ -1264,10 +1263,11 @@ Net::SSH Session.</p>
 189
 190
 191
-192</pre>
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
@@ -1376,12 +1376,12 @@ container.</p>
       <pre class="lines">
 
 
-109
 110
-111</pre>
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_ls'>ls</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>-1</span><span class='tstring_end'>)</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1430,17 +1430,17 @@ container.</p>
       <pre class="lines">
 
 
-196
 197
 198
 199
 200
 201
 202
-203</pre>
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1521,12 +1521,12 @@ container.</p>
       <pre class="lines">
 
 
-98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ls'>ls</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lxc-ls</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
@@ -1602,12 +1602,12 @@ container.</p>
       <pre class="lines">
 
 
-119
 120
-121</pre>
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ps'>ps</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lxc-ps</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1683,15 +1683,15 @@ container.</p>
       <pre class="lines">
 
 
-129
 130
 131
 132
 133
-134</pre>
+134
+135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lxc-version</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='const'>REGEX_VERSION</span><span class='rparen'>)</span>
@@ -1709,7 +1709,7 @@ container.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Jun 17 16:22:26 2013 by
+  Generated on Fri Jun 21 17:56:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
