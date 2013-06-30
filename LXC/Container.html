@@ -313,6 +313,30 @@ output.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bootstrap-instance_method" title="#bootstrap (instance method)">- (String) <strong>bootstrap</strong>(content) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Bootstrap a container.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#clone-instance_method" title="#clone (instance method)">- (Array&lt;String&gt;) <strong>clone</strong>(*args) </a>
     
 
@@ -1379,6 +1403,134 @@ already be running.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="bootstrap-instance_method">
+  
+    - (<tt>String</tt>) <strong>bootstrap</strong>(content) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Bootstrap a container</p>
+
+<p>Renders the supplied text blob inside a container as a script and executes
+it via lxc-attach.  The container must already be running.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>content</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The content to render in the container and execute.  This is generally a
+bash script of some sort for example.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The output of <b>lxc-attach</b>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>lxc-attach</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 257</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bootstrap'>bootstrap</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='kw'>nil</span>
+
+  <span class='const'>ZTK</span><span class='op'>::</span><span class='const'>RescueRetry</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:tries</span> <span class='op'>=&gt;</span> <span class='int'>5</span><span class='comma'>,</span> <span class='symbol'>:on</span> <span class='op'>=&gt;</span> <span class='const'>ContainerError</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_tempfile'>tempfile</span> <span class='op'>=</span> <span class='const'>Tempfile</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bootstrap</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_bootstrap_tempfile'>bootstrap_tempfile</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tmp</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span><span class='lparen'>(</span><span class='id identifier rubyid_tempfile'>tempfile</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='heredoc_beg'>&lt;&lt;-SCRIPT</span><span class='rparen'>)</span>
+<span class='tstring_content'>  cat &lt;&lt;-EOF | tee </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bootstrap_tempfile'>bootstrap_tempfile</span><span class='rbrace'>}</span><span class='tstring_content'>
+  </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_content'>content</span><span class='rbrace'>}</span><span class='tstring_content'>
+  EOF
+</span><span class='heredoc_end'>    SCRIPT
+</span>
+    <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_lxc'>lxc</span><span class='period'>.</span><span class='id identifier rubyid_attach'>attach</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>-- /bin/bash </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bootstrap_tempfile'>bootstrap_tempfile</span><span class='rbrace'>}</span><span class='tstring_end'>)</span></span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_output'>output</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bootstrap_tempfile'>bootstrap_tempfile</span><span class='rbrace'>}</span><span class='tstring_content'>: No such file or directory</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ContainerError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>We could not find the bootstrap file!</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_output'>output</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="clone-instance_method">
   
     - (<tt>Array&lt;String&gt;</tt>) <strong>clone</strong>(*args) 
@@ -1540,12 +1692,12 @@ already be running.</p>
       <pre class="lines">
 
 
-250
-251
-252</pre>
+283
+284
+285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 250</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 283</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_console'>console</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lxc-console</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1599,12 +1751,12 @@ already be running.</p>
       <pre class="lines">
 
 
-321
-322
-323</pre>
+354
+355
+356</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 321</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 354</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_container_root'>container_root</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>var</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lib</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lxc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -1853,18 +2005,18 @@ exec method.</p>
       <pre class="lines">
 
 
-294
-295
-296
-297
-298
-299
-300
-301
-302</pre>
+327
+328
+329
+330
+331
+332
+333
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 294</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 327</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2253,16 +2405,16 @@ ephemeral containers.  False if we should construct a traditional path.</p>
       <pre class="lines">
 
 
-310
-311
-312
-313
-314
-315
-316</pre>
+343
+344
+345
+346
+347
+348
+349</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 310</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 343</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fs_root'>fs_root</span><span class='lparen'>(</span><span class='id identifier rubyid_ephemeral'>ephemeral</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_ephemeral'>ephemeral</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2396,16 +2548,16 @@ ephemeral containers.  False if we should construct a traditional path.</p>
       <pre class="lines">
 
 
-327
-328
-329
-330
-331
-332
-333</pre>
+360
+361
+362
+363
+364
+365
+366</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 327</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 360</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -3337,24 +3489,24 @@ which we will wait for the container to change state to.</p>
       <pre class="lines">
 
 
-268
-269
-270
-271
-272
-273
-274
-275
-276
-277
-278
-279
-280
-281
-282</pre>
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 268</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 301</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wait'>wait</span><span class='lparen'>(</span><span class='id identifier rubyid_states'>states</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='op'>=</span><span class='int'>60</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_state_arg'>state_arg</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_states'>states</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
@@ -3381,7 +3533,7 @@ which we will wait for the container to change state to.</p>
 </div>
 
     <div id="footer">
-  Generated on Fri Jun 21 17:56:46 2013 by
+  Generated on Sun Jun 30 00:46:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
