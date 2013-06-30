@@ -65,6 +65,38 @@ class LXC
         output.join.strip
       end
 
+      # File I/O Wrapper
+      #
+      # This method renders the supplied *content* to the file named *name* on
+      # the LXC host.
+      #
+      # @param [Hash] options The options hash.
+      # @option options [String] :target The target file on the remote host.
+      # @option options [String] :chown A user:group representation of who
+      #   to change ownership of the target file to (i.e. 'root:root').
+      # @option options [String] :chmod An octal file mode which to set the
+      #   target file to (i.e. '0755').
+      # @return [Boolean] True if successful.
+      def file(name, options={}, &block)
+        flags  = (options[:flags] || 'w')
+        mode   = (options[:mode]  || nil)
+
+        target = options[:target]
+        chown  = options[:chown]
+        chmod  = options[:chmod]
+
+        target.nil? and raise SSHError, "You must supply a target file!"
+        !block_given? and raise SSHError, "You must supply a block!"
+
+        File.open(target, flags, mode) do |file|
+          yield(file)
+          file.respond_to?(:flush) and file.flush
+        end
+
+        chown.nil? or self.exec(%(chown -v #{chown} #{target}))
+        chmod.nil? or self.exec(%(chmod -v #{chmod} #{target}))
+      end
+
       # Provides a concise string representation of the class
       # @return [String]
       def inspect

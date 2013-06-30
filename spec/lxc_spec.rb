@@ -191,7 +191,7 @@ describe LXC do
                 :keys => File.join(ENV['HOME'], '.ssh', 'id_rsa'),
                 :keys_only => true
               )
-              runner = ::LXC::Runner::SSH.new(:ssh => connection.ssh)
+              runner = ::LXC::Runner::SSH.new(:ssh => connection)
 
               LXC.new(:runner => runner)
             }

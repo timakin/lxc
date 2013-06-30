@@ -259,17 +259,16 @@ class LXC
 
       ZTK::RescueRetry.try(:tries => 5, :on => ContainerError) do
         tempfile = Tempfile.new("bootstrap")
-        bootstrap_tempfile = File.join("/", "tmp", File.basename(tempfile.path))
+        lxc_tempfile  = File.join("/", "tmp", File.basename(tempfile.path))
+        host_tempfile = File.join(self.fs_root, lxc_tempfile)
 
-        self.exec(<<-SCRIPT)
-  cat <<-EOF | tee #{bootstrap_tempfile}
-  #{content}
-  EOF
-        SCRIPT
+        self.lxc.runner.file(:target => host_tempfile, :chmod => '0755', :chown => 'root:root') do |file|
+          file.puts(content)
+        end
 
-        output = self.lxc.attach(%(-- /bin/bash #{bootstrap_tempfile}))
+        output = self.attach(%(-- /bin/bash #{lxc_tempfile}))
 
-        if !(output =~ /#{bootstrap_tempfile}: No such file or directory/).nil?
+        if !(output =~ /#{lxc_tempfile}: No such file or directory/).nil?
           raise ContainerError, "We could not find the bootstrap file!"
         end
       end
