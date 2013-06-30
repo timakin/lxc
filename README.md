@@ -4,11 +4,6 @@
 [![Coverage Status](https://coveralls.io/repos/zpatten/lxc/badge.png?branch=master)](https://coveralls.io/r/zpatten/lxc)
 [![Code Climate](https://codeclimate.com/github/zpatten/lxc.png)](https://codeclimate.com/github/zpatten/lxc)
 
-# OFFICIAL LXC PROJECT
-
-* http://lxc.sourceforge.net/
-* https://github.com/lxc/lxc
-
 # LXC RUBYGEM
 
 An interface for controlling local or remote Linux Containers (LXC) via Ruby.
@@ -87,6 +82,11 @@ Source:
 Issues:
 
 * https://github.com/zpatten/lxc/issues
+
+# OFFICIAL LXC PROJECT
+
+* http://lxc.sourceforge.net/
+* https://github.com/lxc/lxc
 
 # LICENSE
 
