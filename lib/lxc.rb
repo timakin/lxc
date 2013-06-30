@@ -14,34 +14,17 @@ class LXC
   autoload :Container, 'lxc/container'
   autoload :Runner,    'lxc/runner'
 
-  # Controls if sudo is prefixed on all executed commands.
+  # The runner we will use to execute all LXC commands.
   #
-  # @overload use_sudo=(value)
-  #   Sets if all executed commands should be prefixed with sudo.
-  #   @param [Boolean] value
+  # @overload runner=(value)
+  #   Sets the runner to use.
+  #   @param [LXC::Runner] value
   #
-  # @overload use_sudo
-  #   Gets if we are prefixing all executed commands with sudo.
+  # @overload runner
+  #   Gets the runner we are using, if any.
   #
-  # @return [Boolean] Returns true if we are prefixing commands with "sudo";
-  #   otherwise false.
-  attr_accessor :use_sudo
-
-  # Controls if executed commands run locally or remotely via a Net::SSH
-  # Session.
-  #
-  # @overload use_ssh=(value)
-  #   Sets if all executed commands should be run locally or remotely.
-  #   To force commands to run locally, assign a value of nil (default).
-  #   To force commands to run remotely, assign a valid, active, Net::SSH
-  #   Session.
-  #
-  # @overload use_ssh
-  #   Gets if we are executing commands locally or remotely.
-  #
-  # @return [Net::SSH::Connection::Session] Returns nil if disabled; otherwise
-  #   returns the assigned Net::SSH Session object.
-  attr_accessor :use_ssh
+  # @return [LXC::Runner] Returns the instance of the runner we are using.
+  attr_accessor :runner
 
   # RegEx pattern for extracting the LXC Version from the "lxc-version" command
   # output.
@@ -54,8 +37,7 @@ class LXC
   #   execute all commands remotely via an SSH connection.
   def initialize(options={})
     @ui       = (options[:ui] || ZTK::UI.new)
-    @use_sudo = (options[:use_sudo] || false)
-    @use_ssh  = (options[:use_ssh] || nil)
+    @runner   = (options[:runner] || LXC::Runner::Shell.new(:ui => @ui))
   end
 
   # LXC configuration class
@@ -157,47 +139,15 @@ class LXC
   # @param [Array] args Additional command-line arguments.
   # @return [Array<String>] Stripped output text of the executed command.
   def exec(*args)
-    command = args.shift
-
-    arguments = Array.new
-    arguments << %(sudo) if (@use_sudo == true)
-    arguments << command
-    arguments << args
-    arguments = arguments.flatten.compact.join(' ')
-
-    output = Array.new
-
-    if @use_ssh.nil?
-      begin
-        ::ZTK::PTY.spawn(arguments) do |reader, writer, pid|
-          while (buffer = reader.readpartial(1024))
-            output << buffer
-          end
-        end
-      rescue EOFError
-        # NOOP
-      end
-    else
-      if @use_ssh.is_a?(ZTK::SSH)
-        output << @use_ssh.exec(arguments, :silence => true, :ignore_exit_status => true).output
-      else
-        if @use_ssh.respond_to?(:exec!)
-          output << @use_ssh.exec!(arguments)
-        else
-          raise LXCError, "The object you assigned to use_ssh does not respond to #exec!"
-        end
-      end
-    end
-
-    output.join.strip
+    @runner.exec(*args)
   end
 
   # Provides a concise string representation of the class
   # @return [String]
   def inspect
     tags = Array.new
-    tags << "use_sudo=#{@use_sudo}" if @use_sudo
-    tags << (@use_ssh.nil? ? "use_ssh=false" : "use_ssh=true")
+    tags << "version=#{self.version.inspect}"
+    tags << "runner=#{@runner.inspect}" if @runner
     tags = tags.join(' ')
 
     "#<LXC #{tags}>"

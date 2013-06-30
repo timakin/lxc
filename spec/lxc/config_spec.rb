@@ -24,7 +24,7 @@ describe LXC::Config do
   subject {
     config_file = File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'fixtures', 'test-container'))
 
-    @lxc = LXC.new(:use_sudo => true)
+    @lxc = LXC.new
     lxc_config = LXC::Config.new(@lxc, config_file)
     lxc_config.load
 

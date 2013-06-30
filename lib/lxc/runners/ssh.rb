@@ -1,9 +1,9 @@
 class LXC
   class Runner
 
-    class ShellError < RunnerError; end
+    class SSHError < RunnerError; end
 
-    class Shell
+    class SSH
       require 'socket'
 
       # Controls if sudo is prefixed on all executed commands.
@@ -23,10 +23,11 @@ class LXC
       # @option options [Boolean] :use_sudo (false) Whether or not to prefix all
       #   commands with 'sudo'.
       def initialize(options={})
-        @hostname = Socket.gethostname.split('.').first.strip
-
         @ui       = (options[:ui]       || ZTK::UI.new)
         @use_sudo = (options[:use_sudo] || true)
+        @ssh      = (options[:ssh])
+
+        @ssh.nil? and raise SSHError, "You must supply a ZTK::SSH or Net::SSH instance!"
       end
 
       # Linux container command execution wrapper
@@ -52,14 +53,14 @@ class LXC
 
         output = Array.new
 
-        begin
-          ::ZTK::PTY.spawn(arguments) do |reader, writer, pid|
-            while (buffer = reader.readpartial(1024))
-              output << buffer
-            end
+        if @ssh.is_a?(ZTK::SSH)
+          output << @ssh.exec(arguments, :silence => true, :ignore_exit_status => true).output
+        else
+          if @ssh.respond_to?(:exec!)
+            output << @ssh.exec!(arguments)
+          else
+            raise SSHError, "The object you assigned to ssh does not respond to #exec!"
           end
-        rescue EOFError
-          # NOOP
         end
 
         output.join.strip
@@ -68,6 +69,18 @@ class LXC
       # Provides a concise string representation of the class
       # @return [String]
       def inspect
+        if @hostname.nil?
+          if @ssh.is_a?(ZTK::SSH)
+            @hostname ||= @ssh.exec(%(hostname -s)).output.strip
+          else
+            if @ssh.respond_to?(:exec!)
+              @hostname ||= @ssh.exec!(%(hostname -s)).strip
+            else
+              raise SSHError, "The object you assigned to ssh does not respond to #exec!"
+            end
+          end
+        end
+
         tags = Array.new
         tags << "host=#{@hostname.inspect}"
         tags << "use_sudo=#{@use_sudo.inspect}"

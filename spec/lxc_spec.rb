@@ -29,18 +29,6 @@ describe LXC do
       subject.should be_an_instance_of LXC
     end
 
-    describe "defaults" do
-
-      it "should have use_sudo set to false" do
-        subject.use_sudo.should == false
-      end
-
-      it "should have use_ssh set to nil" do
-        subject.use_ssh.should == nil
-      end
-
-    end
-
   end
 
   describe "methods" do
@@ -195,17 +183,20 @@ describe LXC do
           end
 
           context "against remote host" do
-            before(:each) do
-              @ssh_connection = ::ZTK::SSH.new(
+
+            subject {
+              connection = ::ZTK::SSH.new(
                 :host_name => "127.0.0.1",
                 :user => ENV['USER'],
                 :keys => File.join(ENV['HOME'], '.ssh', 'id_rsa'),
                 :keys_only => true
-              ).ssh
-            end
+              )
+              runner = ::LXC::Runner::SSH.new(:ssh => connection.ssh)
+
+              LXC.new(:runner => runner)
+            }
 
             it "should exec the supplied LXC command" do
-              subject.use_ssh = @ssh_connection
               subject.exec("version").should be_kind_of(String)
             end
           end if !ENV['CI'] && !ENV['TRAVIS']

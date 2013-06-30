@@ -1,5 +1,3 @@
-require 'timeout'
-
 class LXC
 
   # Container Error Class
@@ -9,6 +7,8 @@ class LXC
   #
   # @author Zachary Patten <zachary AT jovelabs DOT com>
   class Container
+    require 'timeout'
+    require 'tempfile'
 
     # An array containing the valid container states extracted from the LXC
     # c-source code.
@@ -242,6 +242,39 @@ class LXC
     # @see lxc-attach
     def attach(*args)
       self.exec("lxc-attach", *args)
+    end
+
+    # Bootstrap a container
+    #
+    # Renders the supplied text blob inside a container as a script and executes
+    # it via lxc-attach.  The container must already be running.
+    #
+    # @see lxc-attach
+    #
+    # @param [String] content The content to render in the container and
+    #   execute.  This is generally a bash script of some sort for example.
+    # @return [String] The output of *lxc-attach*.
+    def bootstrap(content)
+      output = nil
+
+      ZTK::RescueRetry.try(:tries => 5, :on => ContainerError) do
+        tempfile = Tempfile.new("bootstrap")
+        bootstrap_tempfile = File.join("/", "tmp", File.basename(tempfile.path))
+
+        self.exec(<<-SCRIPT)
+  cat <<-EOF | tee #{bootstrap_tempfile}
+  #{content}
+  EOF
+        SCRIPT
+
+        output = self.lxc.attach(%(-- /bin/bash #{bootstrap_tempfile}))
+
+        if !(output =~ /#{bootstrap_tempfile}: No such file or directory/).nil?
+          raise ContainerError, "We could not find the bootstrap file!"
+        end
+      end
+
+      output
     end
 
     # Launch a console for the container

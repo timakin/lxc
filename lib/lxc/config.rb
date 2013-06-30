@@ -36,7 +36,7 @@ class LXC
     #
     # @return [Hash] LXC configuration hash.
     def save
-      use_sudo = (@lxc.use_sudo ? 'sudo ' : nil)
+      use_sudo = (@lxc.runner.use_sudo ? 'sudo ' : nil)
 
       script = Array.new
       script << "cat <<EOF | #{use_sudo}tee #{@filename}"
