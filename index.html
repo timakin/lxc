@@ -67,9 +67,9 @@
 <a href="https://coveralls.io/r/zpatten/lxc"><img src="https://coveralls.io/repos/zpatten/lxc/badge.png?branch=master" alt="Coverage Status"></a>
 <a href="https://codeclimate.com/github/zpatten/lxc"><img src="https://codeclimate.com/github/zpatten/lxc.png" alt="Code Climate"></a></p>
 
-<h1>LXC</h1>
+<h1>LXC RUBYGEM</h1>
 
-<p>An interface for controlling local or remote Linux Containers (LXC).</p>
+<p>RubyGem for controlling local or remote Linux Containers (LXC)</p>
 
 <h1>EXAMPLES</h1>
 
@@ -77,8 +77,7 @@
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lxc</span><span class='tstring_end'>'</span></span>
 
-<span class='id identifier rubyid_lxc'>lxc</span> <span class='op'>=</span> <span class='const'>LXC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:use_sudo</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_lxc'>lxc</span><span class='period'>.</span><span class='id identifier rubyid_use_sudo'>use_sudo</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='id identifier rubyid_lxc'>lxc</span> <span class='op'>=</span> <span class='const'>LXC</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_lxc'>lxc</span><span class='period'>.</span><span class='id identifier rubyid_version'>version</span>
 <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='const'>LXC</span><span class='op'>::</span><span class='const'>Container</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:lxc</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_lxc'>lxc</span><span class='comma'>,</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>test</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_running?'>running?</span>
@@ -87,38 +86,36 @@
 
 <p>Executed via the lxc-console development binary:</p>
 
-<pre class="code ruby"><code class="ruby">$ be ./bin/lxc-console
+<pre class="code ruby"><code class="ruby">$ bin/lxc-console
 
-From: /home/zpatten/Dropbox/code/personal/testlab-repo/vendor/checkouts/lxc/bin/lxc-console @ line 12 Object#lxc_console:
+From: /home/zpatten/code/personal/testlab-repo/vendor/checkouts/lxc/bin/lxc-console @ line 33 Object#lxc_console:
 
-     3: def lxc_console
-     4:   require 'pry'
-     5:   require 'lxc'
-     6:
-     7:   ##
-     8:   #
-     9:   # Welcome to the LXC RubyGem console!
-    10:   #
-    11:   ##
- =&gt; 12:   binding.pry
-    13: end
+    24: def lxc_console
+    25:   require 'pry'
+    26:   require 'lxc'
+    27:
+    28:   ##
+    29:   #
+    30:   # Welcome to the LXC RubyGem console!
+    31:   #
+    32:   ##
+ =&gt; 33:   binding.pry
+    34: end
 
 [1] pry(main)&gt; require 'lxc'
 =&gt; false
 [2] pry(main)&gt;
-[3] pry(main)&gt; lxc = LXC.new(:use_sudo =&gt; true)
-=&gt; #&lt;LXC use_sudo=true use_ssh=false&gt;
-[4] pry(main)&gt; lxc.use_sudo = true
-=&gt; true
-[5] pry(main)&gt; lxc.version
+[3] pry(main)&gt; lxc = LXC.new
+=&gt; #&lt;LXC version=&quot;0.8.0-rc2&quot; runner=#&lt;LXC::Runner::Shell host=&quot;zsp-desktop&quot; use_sudo=true&gt;&gt;
+[4] pry(main)&gt; lxc.version
 =&gt; &quot;0.8.0-rc2&quot;
-[6] pry(main)&gt; c = LXC::Container.new(:lxc =&gt; lxc, :name =&gt; 'test')
+[5] pry(main)&gt; c = LXC::Container.new(:lxc =&gt; lxc, :name =&gt; 'test')
 =&gt; #&lt;LXC::Container name=&quot;test&quot;&gt;
-[7] pry(main)&gt; c.running?
+[6] pry(main)&gt; c.running?
 =&gt; false
-[8] pry(main)&gt; c.exists?
+[7] pry(main)&gt; c.exists?
 =&gt; false
-[9] pry(main)&gt;
+[8] pry(main)&gt;
 </code></pre>
 
 <h1>RUBIES TESTED AGAINST</h1>
@@ -157,9 +154,16 @@ From: /home/zpatten/Dropbox/code/personal/testlab-repo/vendor/checkouts/lxc/bin/
 <li><a href="https://github.com/zpatten/lxc/issues">https://github.com/zpatten/lxc/issues</a></li>
 </ul>
 
+<h1>OFFICIAL LXC PROJECT</h1>
+
+<ul>
+<li><a href="http://lxc.sourceforge.net/">http://lxc.sourceforge.net/</a></li>
+<li><a href="https://github.com/lxc/lxc">https://github.com/lxc/lxc</a></li>
+</ul>
+
 <h1>LICENSE</h1>
 
-<p>LXC - An interface for controlling local or remote Linux Containers (LXC)</p>
+<p>LXC RubyGem - RubyGem for controlling local or remote Linux Containers (LXC)</p>
 
 <ul>
 <li>Author: Zachary Patten <zachary AT jovelabs DOT com> <a href="http://coderwall.com/zpatten"><img src="http://api.coderwall.com/zpatten/endorsecount.png" alt="endorse"></a></li>
@@ -182,7 +186,7 @@ limitations under the License.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Sun Jun 30 11:43:57 2013 by
+  Generated on Sun Jun 30 12:00:25 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
