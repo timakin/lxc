@@ -6,7 +6,7 @@
 
 # LXC RUBYGEM
 
-An interface for controlling local or remote Linux Containers (LXC) via Ruby.
+RubyGem for controlling local or remote Linux Containers (LXC)
 
 # EXAMPLES
 
@@ -90,7 +90,7 @@ Issues:
 
 # LICENSE
 
-LXC RubyGem - An interface for controlling local or remote Linux Containers (LXC) via Ruby.
+LXC RubyGem - RubyGem for controlling local or remote Linux Containers (LXC)
 
 * Author: Zachary Patten <zachary AT jovelabs DOT com> [![endorse](http://api.coderwall.com/zpatten/endorsecount.png)](http://coderwall.com/zpatten)
 * Copyright: Copyright (c) Zachary Patten
