@@ -173,6 +173,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#file-instance_method" title="#file (instance method)">- (Boolean) <strong>file</strong>(options = {}, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>File I/O Wrapper.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (SSH) <strong>initialize</strong>(options = {}) </a>
     
 
@@ -289,6 +313,38 @@
           
         </li>
       
+        <li>
+          <span class="name">:ssh</span>
+          <span class="type">(<tt>ZTK::SSH</tt>, <tt>Net::SSH</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The SSH object to use for remote connections.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:sftp</span>
+          <span class="type">(<tt>ZTK::SSH</tt>, <tt>Net::SFTP</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The SFTP object to use for remote file options.</p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -299,23 +355,39 @@
       <pre class="lines">
 
 
-25
-26
-27
-28
 29
 30
-31</pre>
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@ui</span>       <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:ui</span><span class='rbracket'>]</span>       <span class='op'>||</span> <span class='const'>ZTK</span><span class='op'>::</span><span class='const'>UI</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
   <span class='ivar'>@use_sudo</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:use_sudo</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@ssh</span>      <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:ssh</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@sftp</span>     <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:sftp</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+  <span class='comment'># If the @ssh object is an instance of ZTK::SSH then use it for our
+</span>  <span class='comment'># SFTP object as well.
+</span>  <span class='kw'>if</span> <span class='ivar'>@ssh</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>ZTK</span><span class='op'>::</span><span class='const'>SSH</span><span class='rparen'>)</span>
+    <span class='ivar'>@sftp</span> <span class='op'>=</span> <span class='ivar'>@ssh</span>
+  <span class='kw'>end</span>
 
   <span class='ivar'>@ssh</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='kw'>and</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>SSHError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must supply a ZTK::SSH or Net::SSH instance!</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@sftp</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='kw'>and</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>SSHError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must supply a ZTK::SSH or Net::SFTP instance!</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -525,18 +597,6 @@ Net::SSH Session.</p>
       <pre class="lines">
 
 
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
 57
 58
 59
@@ -547,10 +607,22 @@ Net::SSH Session.</p>
 64
 65
 66
-67</pre>
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
@@ -574,6 +646,177 @@ Net::SSH Session.</p>
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_output'>output</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>file</strong>(options = {}, &amp;block) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>File I/O Wrapper</p>
+
+<p>This method renders the supplied <b>content</b> to the file named
+<b>name</b> on the LXC host.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The options hash.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:target</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The target file on the remote host.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:chown</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>A user:group representation of who to change ownership of the target file
+to (i.e. ‘root:root’).</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:chmod</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>An octal file mode which to set the target file to (i.e. ‘0755’).</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>True if successful.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 93</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_file'>file</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@sftp</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>ZTK</span><span class='op'>::</span><span class='const'>SSH</span><span class='rparen'>)</span>
+    <span class='comment'># Massage for Net::SSH
+</span>    <span class='id identifier rubyid_flags'>flags</span>  <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:flags</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>w</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_mode'>mode</span>   <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:mode</span><span class='rbracket'>]</span>  <span class='op'>||</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_target'>target</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:target</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_chown'>chown</span>  <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:chown</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_chmod'>chmod</span>  <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:chmod</span><span class='rbracket'>]</span>
+
+    <span class='ivar'>@sftp</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='comma'>,</span> <span class='id identifier rubyid_flags'>flags</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
+      <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_chown'>chown</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='kw'>or</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>chown -v </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chown'>chown</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_target'>target</span><span class='rbrace'>}</span><span class='tstring_end'>)</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_chmod'>chmod</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='kw'>or</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>chmod -v </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_chmod'>chmod</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_target'>target</span><span class='rbrace'>}</span><span class='tstring_end'>)</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='comment'># Pass-through for ZTK:SSH
+</span>    <span class='ivar'>@sftp</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -619,29 +862,29 @@ Net::SSH Session.</p>
       <pre class="lines">
 
 
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90</pre>
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/runners/ssh.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='kw'>if</span> <span class='ivar'>@hostname</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -673,7 +916,7 @@ Net::SSH Session.</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Jun 30 00:46:45 2013 by
+  Generated on Sun Jun 30 11:43:22 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>
