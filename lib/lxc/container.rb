@@ -259,7 +259,7 @@ class LXC
 
       ZTK::RescueRetry.try(:tries => 5, :on => ContainerError) do
         tempfile = Tempfile.new("bootstrap")
-        lxc_tempfile  = File.join("/", "tmp", File.basename(tempfile.path))
+        lxc_tempfile  = File.join("", "tmp", File.basename(tempfile.path))
         host_tempfile = File.join(self.fs_root, lxc_tempfile)
 
         self.lxc.runner.file(:target => host_tempfile, :chmod => '0755', :chown => 'root:root') do |file|
