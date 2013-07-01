@@ -188,7 +188,7 @@ describe LXC do
               connection = ::ZTK::SSH.new(
                 :host_name => "127.0.0.1",
                 :user => ENV['USER'],
-                :keys => File.join(Dir.home, '.ssh', 'id_rsa'),
+                :keys => File.join(ENV['HOME'], '.ssh', 'id_rsa'),
                 :keys_only => true
               )
               runner = ::LXC::Runner::SSH.new(:ssh => connection)
