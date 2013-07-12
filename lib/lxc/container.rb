@@ -347,6 +347,13 @@ class LXC
       end
     end
 
+    # Static information about the containers filesystems
+    #
+    # @return [String] The path to the containers fstab.
+    def fs_tab
+      File.join(self.container_root, 'fstab')
+    end
+
     # Directory for the container
     #
     # @return [String] The directory for the container.
