@@ -649,6 +649,30 @@ output.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#fs_tab-instance_method" title="#fs_tab (instance method)">- (String) <strong>fs_tab</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Static information about the containers filesystems.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#info-instance_method" title="#info (instance method)">- (Array&lt;String&gt;) <strong>info</strong>(*args) </a>
     
 
@@ -1749,12 +1773,12 @@ bash script of some sort for example.</p>
       <pre class="lines">
 
 
-353
-354
-355</pre>
+360
+361
+362</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 353</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 360</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_container_root'>container_root</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>var</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lib</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lxc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -2427,6 +2451,65 @@ ephemeral containers.  False if we should construct a traditional path.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="fs_tab-instance_method">
+  
+    - (<tt>String</tt>) <strong>fs_tab</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Static information about the containers filesystems</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The path to the containers fstab.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+353
+354
+355</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 353</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fs_tab'>fs_tab</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_container_root'>container_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>fstab</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="info-instance_method">
   
     - (<tt>Array&lt;String&gt;</tt>) <strong>info</strong>(*args) 
@@ -2546,16 +2629,16 @@ ephemeral containers.  False if we should construct a traditional path.</p>
       <pre class="lines">
 
 
-359
-360
-361
-362
-363
-364
-365</pre>
+366
+367
+368
+369
+370
+371
+372</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 359</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 366</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -3531,7 +3614,7 @@ which we will wait for the container to change state to.</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Jun 30 18:30:34 2013 by
+  Generated on Fri Jul 12 15:32:17 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
