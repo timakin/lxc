@@ -6,7 +6,7 @@
 <title>
   Class: LXC::Container
   
-    &mdash; Documentation by YARD 0.8.6.2
+    &mdash; Documentation by YARD 0.8.7.1
   
 </title>
 
@@ -433,6 +433,30 @@ output.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#cpu_usage-instance_method" title="#cpu_usage (instance method)">- (Object) <strong>cpu_usage</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>CPU Time in Seconds.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#create-instance_method" title="#create (instance method)">- (Array&lt;String&gt;) <strong>create</strong>(*args) </a>
     
 
@@ -739,6 +763,30 @@ output.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Provides a concise string representation of the class.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#memory_usage-instance_method" title="#memory_usage (instance method)">- (Object) <strong>memory_usage</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Current Memory Usage.</p>
 </div></span>
   
 </li>
@@ -1076,7 +1124,7 @@ output.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>A new instance of Container</p>
+<p>Returns a new instance of Container</p>
 
 
   </div>
@@ -1773,15 +1821,58 @@ bash script of some sort for example.</p>
       <pre class="lines">
 
 
-360
-361
-362</pre>
+372
+373
+374</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 360</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 372</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_container_root'>container_root</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>var</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lib</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>lxc</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cpu_usage-instance_method">
+  
+    - (<tt>Object</tt>) <strong>cpu_usage</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>CPU Time in Seconds</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+323
+324
+325
+326</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 323</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cpu_usage'>cpu_usage</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>lxc-cgroup</span><span class='tstring_end'>)</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>cpuacct.usage</span><span class='tstring_end'>)</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>/</span> <span class='float'>1E9</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2027,18 +2118,18 @@ exec method.</p>
       <pre class="lines">
 
 
-326
-327
-328
-329
-330
-331
-332
-333
-334</pre>
+338
+339
+340
+341
+342
+343
+344
+345
+346</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 326</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 338</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2427,16 +2518,16 @@ ephemeral containers.  False if we should construct a traditional path.</p>
       <pre class="lines">
 
 
-342
-343
-344
-345
-346
-347
-348</pre>
+354
+355
+356
+357
+358
+359
+360</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 342</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 354</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fs_root'>fs_root</span><span class='lparen'>(</span><span class='id identifier rubyid_ephemeral'>ephemeral</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_ephemeral'>ephemeral</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2494,12 +2585,12 @@ ephemeral containers.  False if we should construct a traditional path.</p>
       <pre class="lines">
 
 
-353
-354
-355</pre>
+365
+366
+367</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 353</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 365</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fs_tab'>fs_tab</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_container_root'>container_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>fstab</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
@@ -2629,16 +2720,16 @@ ephemeral containers.  False if we should construct a traditional path.</p>
       <pre class="lines">
 
 
-366
-367
-368
-369
-370
-371
-372</pre>
+378
+379
+380
+381
+382
+383
+384</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 366</span>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 378</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -2646,6 +2737,49 @@ ephemeral containers.  False if we should construct a traditional path.</p>
   <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;LXC::Container </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tags'>tags</span><span class='rbrace'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="memory_usage-instance_method">
+  
+    - (<tt>Object</tt>) <strong>memory_usage</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Current Memory Usage</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+317
+318
+319
+320</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lxc/container.rb', line 317</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_memory_usage'>memory_usage</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>lxc-cgroup</span><span class='tstring_end'>)</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>memory.usage_in_bytes</span><span class='tstring_end'>)</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='int'>0</span> <span class='op'>:</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3614,9 +3748,9 @@ which we will wait for the container to change state to.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Jul 15 13:44:30 2013 by
+  Generated on Mon Sep 16 19:19:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-1.9.3).
+  0.8.7.1 (ruby-1.9.3).
 </div>
 
   </body>
