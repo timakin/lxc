@@ -167,6 +167,8 @@ describe LXC do
 
         describe "#inspect" do
           it "should return an information string about our class instance" do
+            subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-version.out") }
+
             subject.inspect.should be_kind_of(String)
             subject.inspect.length.should be > 0
           end
@@ -178,7 +180,7 @@ describe LXC do
             it "should exec the supplied LXC command" do
               subject.stub(:exec) { lxc_fixture(lxc_version, "lxc-version.out") }
 
-              subject.exec("version").should be_kind_of(String)
+              subject.exec("lxc-version").should be_kind_of(String)
             end
           end
 
