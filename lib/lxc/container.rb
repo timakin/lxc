@@ -316,13 +316,19 @@ class LXC
     # Current Memory Usage
     def memory_usage
       result = self.exec(%(lxc-cgroup), %(memory.usage_in_bytes))
-      result.empty? ? 0 : result.to_i
+      (result.empty? ? 0 : result.to_i)
     end
 
     # CPU Time in Seconds
     def cpu_usage
       result = self.exec(%(lxc-cgroup), %(cpuacct.usage))
-      result.empty? ? 0 : (result.to_i / 1E9).to_i
+      (result.empty? ? 0 : (result.to_i / 1E9).to_i)
+    end
+
+    # Current Disk Usage
+    def disk_usage(ephemeral=false)
+      result = (@lxc.exec(%(du -sb #{self.fs_root(ephemeral)})).split.first rescue nil)
+      ((result.nil? || result.empty?) ? 0 : result.to_i)
     end
 
     # Linux container command execution wrapper
