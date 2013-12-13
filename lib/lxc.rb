@@ -127,6 +127,20 @@ class LXC
     ZTK::ANSI.uncolor(self.exec("lxc-checkconfig", *args)).split("\n")
   end
 
+  # Linux containers installed?
+  #
+  # Checks the output of "lxc-checkconfig" to see if it returns a
+  # 'command not found' error.
+  #
+  # @return [Boolean] True if LXC is installed; false otherwise.
+  def installed?
+    if !!(self.checkconfig.join =~ /command not found/)
+      false
+    else
+      true
+    end
+  end
+
   # Linux container command execution wrapper
   #
   # Runs the supplied LXC command.  The first element in the "args" splat is the
