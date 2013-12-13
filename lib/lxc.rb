@@ -108,12 +108,13 @@ class LXC
   # Runs the "lxc-version" command.
   #
   # @param [Array] args Additional command-line arguments.
-  # @return [String] The installed version of LXC.
+  # @return [String] The installed version of LXC.  Returns nil if lxc-version
+  #   is not found.
   def version(*args)
-    result = self.exec("lxc-version", *args).scan(REGEX_VERSION)
-    result.flatten!.compact!
-
+    result = self.exec("lxc-version", *args).scan(REGEX_VERSION).flatten.compact
     result.first.strip
+  rescue
+    nil
   end
 
   # Linux container configuration check
