@@ -141,6 +141,16 @@ class LXC
       self.lxc.exec("lxc-clone", *args)
     end
 
+    # Operate a snapshot of the contaienr
+    #
+    # Runs the "lxc-snapshot" command.
+    #
+    # @return [Array<String>] Lines of output from the executed command.
+    # @see lxc-snapshot
+    def snapshot(*args)
+      self.lxc.exec("lxc-snapshot", *args)
+    end
+
     # Stop the container
     #
     # Runs the "lxc-stop" command.
